@@ -1,11 +1,8 @@
-module.exports = function(req,res,next){
-    if(req.isAuthenticated){
-        return next()
-    }else{
-        req.session.loginMessage = {
-            message:'You created an account successfully',
-            type:'success'
-        }
-        res.render('back')
+module.exports = function(req, res, next){
+    if(req.isAuthenticated()){
+        next()
+    }
+    else{
+        res.status(200).send('You Must Login To Continue')
     }
 }

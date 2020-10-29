@@ -97,23 +97,19 @@ router.get('/searchCovidInfo', function(req,res){
 
 
 router.get('/user',isLogged, function (req, res) {
-    const id = req.user._id
-    User.findOne({ _id: id }, function (err, user) {
-        Video.find({}).limit(12).lean().exec(function (err, videos) {
-            if (err) {
-                console.log(err)
-            } else {
-
-                res.send({
-                    title: user.name,
-                    name: user.name,
-                    email: user.email,
-                    videos: videos
-
-
-                })
+    
+    var noVideo = null
+    Video.find({}).limit(12).exec(function(err,video){
+        if(err){
+            console.log(err)
+        }else{
+            if(video.length < 1){
+                noVideo = "No video found"
+            }else{
+                console.log('ksksksk')
+                res.status(200).send({noVideo:noVideo,user:req.user})
             }
-        })
+        }
     })
 
 })
