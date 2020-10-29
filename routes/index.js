@@ -28,7 +28,7 @@ router.get('/', function (req, res) {
                 title: 'covidus-covid 19 travelling guide for travellers ',
                 videos:videos
             }
-            res.render('login')
+            res.render(data)
             // res.status(200).send(data)
 
         }
@@ -40,58 +40,58 @@ router.get('/', function (req, res) {
 })
 
 //infotmation about travelling restriction in a country
-// router.get('/covid-info', function (req, res) {
-//     var limit = parseInt(req.query.limit)
-//     console.log(limit)
-//     var MongoClient = require('mongodb').MongoClient;
-//     var url = process.env.MONGODB_URI;
+router.get('/covid-info', function (req, res) {
+    var limit = parseInt(req.query.limit)
+    console.log(limit)
+    var MongoClient = require('mongodb').MongoClient;
+    var url = process.env.MONGODB_URI;
 
-//     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-//         if (err) throw err;
-//         var dbo = db.db("covidus");
-//         dbo.collection("covidGuide").find({}).limit(limit).toArray(function (err, result) {
-//             if (err) throw err;
+    MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("covidus");
+        dbo.collection("covidGuide").find({}).limit(limit).toArray(function (err, result) {
+            if (err) throw err;
             
-//             res.send(result)
-//             db.close();
-//             console.log(result);
+            res.send(result)
+            db.close();
+            console.log(result);
            
             
             
-//         });
-//     });
+        });
+    });
 
-// })
+})
 
-// function escapeRegex(text) {
-//     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-// };
-// router.get('/searchCovidInfo', function(req,res){
-//     // var search = req.params.search
-//     var noMatch = null
-//     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-//     var MongoClient = require('mongodb').MongoClient;
-//     var url = process.env.MONGODB_URI;
+function escapeRegex(text) {
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+router.get('/searchCovidInfo', function(req,res){
+    // var search = req.params.search
+    var noMatch = null
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    var MongoClient = require('mongodb').MongoClient;
+    var url = process.env.MONGODB_URI;
 
-//     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-//         if (err) throw err;
-//         var dbo = db.db("covidus");
-//         dbo.collection("covidGuide").find({adm0_name:regex}).toArray(function (err, result) {
-//             if(err){
-//                 console.log(err)
-//             }else{
-//                 if(result.length < 1){
-//                     noMatch = "No Match for this query, please try again"
-//                 }
-//                     res.send({result:result,noMatch:noMatch})
-//                     db.close();
-//                     console.log(result);
-//             } 
+    MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+        if (err) throw err;
+        var dbo = db.db("covidus");
+        dbo.collection("covidGuide").find({adm0_name:regex}).toArray(function (err, result) {
+            if(err){
+                console.log(err)
+            }else{
+                if(result.length < 1){
+                    noMatch = "No Match for this query, please try again"
+                }
+                    res.send({result:result,noMatch:noMatch})
+                    db.close();
+                    console.log(result);
+            } 
             
-//         });
-//     });
+        });
+    });
 
-// })
+})
 
 
 
