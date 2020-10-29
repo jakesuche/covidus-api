@@ -61,8 +61,9 @@
         "/covid-info":{
             "get":{
                 "tags": [
-                    "covid info"
+                    "Covid-19 info For Countries"
                 ],
+                "summary": "Covid-19 restrictions for countries",
                 "description": "to get countries and their their covid restrictions",
                 "produces":[
                     
@@ -186,6 +187,46 @@
                 }
             }
         },
+        "/auth/facebook":{
+            "get": {
+                "tags": [
+                    "Facebook authentication"
+                ],
+                "summary": "Login or signup link  with facebook",
+                "description": "After successfull signin or signup the user will be redirect to /user route",
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "image upload successfully"
+                       
+                    }
+                }
+            }
+        },
+        "/auth/google":{
+            "get": {
+                "tags": [
+                    "Facebook authentication"
+                ],
+                "summary": "Authentication with Google",
+                "description": "After a successfull google authentication the user will be redirected to /user",
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "image upload successfully",
+                        "schema":{
+                            "$ref":"#/definitions/Login"
+                        }
+                    }
+                }
+            }
+        },
+        
+        
         "/signup":{
             "post": {
                 "tags": [
@@ -200,6 +241,44 @@
                         "description": "successfull operation",
                         "schema":{
                             "$ref":"#/definitions/Signup"
+                        }
+                    }
+                }
+            }
+        },
+        "/contact":{
+            "get": {
+                "tags": [
+                    "Contact us page"
+                ],
+                "summary": "contact us page",
+                "description": "get route for contact us page",
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "successfull operation"
+                        
+                    }
+                }
+            }
+        },
+        "/contact/sendMessage":{
+            "post": {
+                "tags": [
+                    "Send Messsage"
+                ],
+                "summary": "Post route for contact us ",
+                
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "successfull operation",
+                        "schema":{
+                            "$ref":"#/definitions/ContactSchema"
                         }
                     }
                 }
@@ -281,6 +360,29 @@
                     "type":"string"
                 },
                 "password":{
+                    "type":"string"
+                }
+            }
+        },
+        "ContactSchema":{
+            "type":"object",
+            "properties": {
+                "name":{
+                    "type":"string"
+                },
+                "country":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "phone":{
+                    "type":"number"
+                },
+                "reason":{
+                    "type":"string"
+                },
+                "evidence":{
                     "type":"string"
                 }
             }
