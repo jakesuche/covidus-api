@@ -27,7 +27,7 @@ const fs = require('fs')
 const file = fs.readFileSync('./controllers/template/email.handlebars','utf-8')
 
 configure(app)
-app.set('views', __dirname + '/views' )
+app.set('views', __dirname + './views' )
 
 
 
