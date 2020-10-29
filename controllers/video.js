@@ -6,7 +6,7 @@ const Video = require('../models/Video')
 const path = require('path')
 const fs = require('fs')
 
-
+console.log(process.env.GMAIL_NAME +  'AND'  + process.env.GMAIL_PASS + 'ON SERVER.JS')
 
 
 
