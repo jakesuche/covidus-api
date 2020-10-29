@@ -51,7 +51,7 @@ module.exports = function(){
     passport.use(new facebookStrategy({
         clientID: process.env.FACEBOOK_ID,
         clientSecret:process.env.FACEBOOK_SECRETE ,
-        callbackURL: "http://localhost:4000/auth/facebook/callback",
+        callbackURL: "https://covidus1.herokuapp.com/auth/facebook/callback",
         profileFields: ['id', 'displayName', 'photos', 'email']
     
       },
@@ -109,7 +109,7 @@ module.exports = function(){
       passport.use(new googleStrategy({
           clientID: process.env.GOOGLE_CLIENT,
           clientSecret:process.env.GOOGLE_SECRETE,
-          callbackURL:'http://localhost:4000/auth/google/callback',
+          callbackURL:'https://covidus1.herokuapp.com/auth/google/callback',
           profileFields:['id','displayName','email']
 
       },function(accessToken, profile, done){

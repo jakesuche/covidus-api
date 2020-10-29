@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-      "description": "This is a covidus server.  You can find out more about     ",
+      "description": "This is a covidus server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
       "version": "1.0.0",
       "title": "SCovidus",
       "termsOfService": "http://swagger.io/terms/",
@@ -36,6 +36,24 @@
                         "schema":{
                             "$ref":"#/definition/home"
                         }
+                    }
+                }
+            }
+        },
+        "/user":{
+            "get":{
+                "tags":[
+                    "Authenticated route for user"
+                ],
+                "description": "This is an anthenticated route after user user signs in",
+                "summary":"User home",
+                "produces":[
+                    "application/json"
+                ],
+                "responses":{
+                    "200":{
+                        "description": "successful operation"
+                      
                     }
                 }
             }
@@ -148,6 +166,44 @@
                     }
                 }
             }
+        },
+        "/login":{
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "description": "login",
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "image upload successfully",
+                        "schema":{
+                            "$ref":"#/definitions/Login"
+                        }
+                    }
+                }
+            }
+        },
+        "/signup":{
+            "post": {
+                "tags": [
+                    "Signup"
+                ],
+                "description": "signup with email , name",
+                "produces":[
+                    "application/json"
+                ],
+                "responses": {
+                    "200":{
+                        "description": "successfull operation",
+                        "schema":{
+                            "$ref":"#/definitions/Signup"
+                        }
+                    }
+                }
+            }
         }
         
         
@@ -200,6 +256,31 @@
                     "type":"string"
                 },
                 "country":{
+                    "type":"string"
+                }
+            }
+        },
+        "Login":{
+            "type":"object",
+            "properties": {
+                "email":{
+                    "type":"string"
+                },
+                "password":{
+                    "type":"string"
+                }
+            }
+        },
+        "Signup":{
+            "type":"object",
+            "properties": {
+                "name":{
+                    "type":"string"
+                },
+                "email":{
+                    "type":"string"
+                },
+                "password":{
                     "type":"string"
                 }
             }
