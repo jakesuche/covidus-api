@@ -28,7 +28,8 @@ router.get('/', function (req, res) {
                 title: 'covidus-covid 19 travelling guide for travellers ',
                 videos:videos
             }
-            res.status(200).send(data)
+            res.render('login')
+            // res.status(200).send(data)
 
         }
     })
