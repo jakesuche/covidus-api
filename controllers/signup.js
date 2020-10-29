@@ -53,7 +53,7 @@ module.exports = {
                             console.log(err)
                         }else{
                             const link = `http://localhost:4000/activate/${token}`
-                            var transport = nodemailer.createTransport({service:"Gmail",auth:{user:process.env.GMAIL_NAME,pass:process.env.GMAIL_PASS}})
+                            var transport = nodemailer.createTransport({service:"Gmail",auth:{user:"uchechidi5@gmail.com",pass:081023533}})
                             const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
                             var mailOptions = {
                                 from:'Covidus 📧 <noreply@covidus.com>',
