@@ -28,7 +28,7 @@ router.get('/', function (req, res) {
                 title: 'covidus-covid 19 travelling guide for travellers ',
                 videos:videos
             }
-            res.render(data)
+            res.send(data)
             // res.status(200).send(data)
 
         }
