@@ -54,7 +54,7 @@ module.exports = function(app){
     app.use(multer({dest: './public/upload/temp'}).single('file')); /// enables image uploads
     app.use('/public/', express.static(path.join(__dirname ,'../public'))); 
      app.use(session({
-        secret:process.env.SECRETE,
+        secret:"covidusapp",
         resave:true,
         saveUninitialized:true
     }));
