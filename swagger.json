@@ -14,7 +14,7 @@
         }
     },
     "host": "covidus1.herokuapp.com",
-    "basePath": "/v1",
+    "basePath": "/",
     "schemes": [
         "http",
         "https"
