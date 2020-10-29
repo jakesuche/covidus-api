@@ -7,6 +7,8 @@ const nodemailer = require('nodemailer')
 const UserModel = require('../models/user')
 const dotenv = require('dotenv')
 const TwitterStrategy = require('passport-twitter')
+console.log(process.env.GMAIL_NAME )
+
 
 
 
