@@ -25,9 +25,9 @@ app.listen(process.env.PORT || 5000, function () {
 
 const fs = require('fs')
 const file = fs.readFileSync('./controllers/template/email.handlebars','utf-8')
-
+app.set('views', __dirname + '/views' )
 configure(app)
-app.set('views', __dirname + './views' )
+
 
 
 
