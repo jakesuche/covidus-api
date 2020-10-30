@@ -54,11 +54,15 @@ module.exports = {
                         }else{
                             const link = `https://covidus1.herokuapp.com/activate/${token}`
                             var transport = nodemailer.createTransport(
-                                {host:'smtp.gmail.com',
-                                port:465,
-                                secure:true
-                                auth:{user:process.env.GMAIL_NAME,
-                                    pass:process.env.GMAIL_PASS}})
+                                {
+                                    host: 'smtp.gmail.com',
+                                    port: 465,
+                                    secure: true,
+                                    auth: {
+                                        user: process.env.GMAIL_NAME,
+                                        pass: process.env.GMAIL_PASS
+                                    }
+                                })
 
                             const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
                             var mailOptions = {
