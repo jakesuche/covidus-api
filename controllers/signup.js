@@ -52,52 +52,68 @@ module.exports = {
                         if(err){
                             console.log(err)
                         }else{
-                            const link = `https://covidus1.herokuapp.com/activate/${token}`
-                            var transport = nodemailer.createTransport(
-                                {
-                                    host: 'smtp.gmail.com',
-                                    port: 465,
-                                    secure: true,
-                                    auth: {
-                                        user: process.env.GMAIL_NAME,
-                                        pass: process.env.GMAIL_PASS
-                                    }
-                                })
 
-                            const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
-                            var mailOptions = {
-                                from:'Covidus 📧 <noreply@covidus.com>',
-                                to:req.body.email,
-                                subject:'Account Registration Successful',
-                                html:compileTemplate.render({name:user.name,link:link,welcome:welcome})
-                                
-                               // html:`pls click on the link to activate your account <a href="http://localhost:4000/activate/${token}></a>`,
-    
-                            }
-                            console.log(user.name)
-                            transport.sendMail(mailOptions,function(error, info){
-                                if(error){
-                                    return console.log(error)
+                            User.updateOne({email:req.body.email},{
+                                $push:{"notifications":{
+                                    message:'Account registration successfull'
+                                }},
+                                $inc:{totalnotification:1}
+                            },function(err,data){
+                                if(err){
+                                    console.log('error for increment' ,err)
                                 }else{
-
-                                    User.updateOne({email:req.body.email},{
-                                        $push:{"notifications":{
-                                            message:'Account registration successfull'
-                                        }},
-                                        $inc:{totalnotification:1}
-                                    },function(err,data){
-                                        if(err){
-                                            console.log('error for increment' ,err)
-                                        }else{
-                                            console.log(data)
-                                        }
-                                    })
-                                    console.log(info)
-                                    res.json({message:'Account registered successfully'})
-
+                                    console.log(data)
                                 }
-                                
                             })
+                            console.log(info)
+                            res.json({message:'Account registered successfully'})
+
+                            // const link = `https://covidus1.herokuapp.com/activate/${token}`
+                            // var transport = nodemailer.createTransport(
+                            //     {
+                            //         host: 'smtp.gmail.com',
+                            //         port: 465,
+                            //         secure: true,
+                            //         auth: {
+                            //             user: process.env.GMAIL_NAME,
+                            //             pass: process.env.GMAIL_PASS
+                            //         }
+                            //     })
+
+                            // const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
+                            // var mailOptions = {
+                            //     from:'Covidus 📧 <noreply@covidus.com>',
+                            //     to:req.body.email,
+                            //     subject:'Account Registration Successful',
+                            //     html:compileTemplate.render({name:user.name,link:link,welcome:welcome})
+                                
+                            //    // html:`pls click on the link to activate your account <a href="http://localhost:4000/activate/${token}></a>`,
+    
+                            // }
+                            // console.log(user.name)
+                            // transport.sendMail(mailOptions,function(error, info){
+                            //     if(error){
+                            //         return console.log(error)
+                            //     }else{
+
+                            //         User.updateOne({email:req.body.email},{
+                            //             $push:{"notifications":{
+                            //                 message:'Account registration successfull'
+                            //             }},
+                            //             $inc:{totalnotification:1}
+                            //         },function(err,data){
+                            //             if(err){
+                            //                 console.log('error for increment' ,err)
+                            //             }else{
+                            //                 console.log(data)
+                            //             }
+                            //         })
+                            //         console.log(info)
+                            //         res.json({message:'Account registered successfully'})
+
+                            //     }
+                                
+                            // })
 
                             
                         }
@@ -109,7 +125,7 @@ module.exports = {
                     
                 }
             })
-        }
+        } //
 
       
     },
