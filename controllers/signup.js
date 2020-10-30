@@ -63,11 +63,11 @@ module.exports = {
                                     console.log('error for increment' ,err)
                                 }else{
                                     console.log(data)
+                                    res.json({message:'Account registered successfully'})
                                 }
                             })
-                            console.log(info)
-                            res.json({message:'Account registered successfully'})
-
+                            
+                            
                             // const link = `https://covidus1.herokuapp.com/activate/${token}`
                             // var transport = nodemailer.createTransport(
                             //     {
@@ -125,7 +125,7 @@ module.exports = {
                     
                 }
             })
-        } //
+        } 
 
       
     },
