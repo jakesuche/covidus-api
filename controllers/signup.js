@@ -25,17 +25,17 @@ module.exports = {
         req.checkBody('password', 'password should at least 8 character').isLength({min:8});
 
 
-        var errors = req.validationErrors()
+        var message = req.validationErrors()
 
-        if(errors){
-            res.json(errors);
-            console.log(errors)
+        if(message){
+            res.status(400).send({message:message})
+            
         }else{
             userSchema.findOne({email:req.body.email}, function(err,user){
                 if(err){
                     res.send(err)
                 }if(user){
-                    res.send('User with the Email Already Exist')
+                    res.send(404).send({message:"User already exist"})
                 }else{
                     
                     crypto.randomBytes(40,function(err,buf){
@@ -50,6 +50,7 @@ module.exports = {
 
                     newUser.save(function(err,user){
                         if(err){
+                            res.status(401).send({message:"error occur while signing up"})
                             console.log(err)
                         }else{
 

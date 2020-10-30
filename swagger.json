@@ -285,7 +285,16 @@
                         "schema": {
                             "$ref": "#/definitions/Signup"
                         }
-                    }
+                    },
+                    "400":{
+                        "description": "errro in validation"
+                    },
+                    "401": {
+                        "description": "server error"
+                      },
+                      "404": {
+                        "description": "Validation exception"
+                      }
                 }
             }
         },
