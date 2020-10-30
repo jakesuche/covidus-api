@@ -52,6 +52,9 @@
                 "responses": {
                     "200": {
                         "description": "successful operation"
+                    },
+                    "404":{
+                        "description": "User not authenticated"
                     }
                 }
             }
@@ -182,6 +185,12 @@
                         "schema": {
                             "$ref": "#/definitions/Videoupload"
                         }
+                    },
+                    "404":{
+                        "description": "authentication error"
+                    },
+                    "405":{
+                        "description": "invalid video format"
                     }
                 }
             }

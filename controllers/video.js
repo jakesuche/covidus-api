@@ -94,7 +94,7 @@ module.exports = {
                                             })
                                         }
                                     })
-                                    res.redirect('/logged')
+                                    res.status(200).send({message:"Video uploaded successfully"})
                                 }
                                
 
@@ -109,8 +109,8 @@ module.exports = {
                                 throw err;
                             }
 
-                            res.status(500).json({
-                                error: 'Invalid image formate'
+                            res.status(405).json({
+                                message: 'Invalid image formate'
                             });
                         }); // deletes file
 

@@ -15,7 +15,7 @@ const setPassport = require('./passport')
 const expressHandlebars = require('express-handlebars')
 const multer = require('multer')
 const cors = require('cors')
-
+let flash = require('express-flash');
 
 const swaggerjsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -58,6 +58,7 @@ module.exports = function(app){
         resave:true,
         saveUninitialized:true
     }));
+    app.use(flash());
     app.use('/public/', express.static(path.join(__dirname ,'../public'))); 
     app.use(passport.initialize());
     app.use(passport.session());

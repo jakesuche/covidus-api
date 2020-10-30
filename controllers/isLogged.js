@@ -3,6 +3,6 @@ module.exports = function(req, res, next){
         next()
     }
     else{
-        res.status(200).send('You Must Login To Continue')
+        res.status(404).send({message:'You Must Login To Continue'})
     }
 }

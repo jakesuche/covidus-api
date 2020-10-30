@@ -14,6 +14,7 @@ const { forgotPassword, resetPassword, resetpassword1 } = require('../controller
 const isActive = require('../controllers/isActive')
 const { verify } = require('../controllers/verifyAccount')
 const isLogged = require('../controllers/isLogged');
+const passport = require('passport')
 
 
 
@@ -26,10 +27,12 @@ router.get('/', function (req, res) {
         }else{
             let data = {
                 title: 'covidus-covid 19 travelling guide for travellers ',
-                videos:videos
+                videos:videos,
+                message:req.flash('loginError')
             }
-            res.send(data)
-            // res.status(200).send(data)
+            
+             res.status(200).send(data)
+            // res.render("home")
 
         }
     })
@@ -93,26 +96,34 @@ router.get('/searchCovidInfo', function(req,res){
 
 })
 
-
-
-
-router.get('/user',isLogged, function (req, res) {
+router.post('/login',passport.authenticate('local-login',{
+    'successRedirect':'/user',
+    'failureRedirect':'/',
+    "failureMessage":true
     
-    var noVideo = null
-    Video.find({}).limit(12).exec(function(err,video){
+
+})) 
+router.get('/user',isLogged,function(req,res){
+    
+    Video.find({}).exec(function(err,videos){
         if(err){
-            console.log(err)
+            throw err
         }else{
-            if(video.length < 1){
-                noVideo = "No video found"
-            }else{
-                console.log('ksksksk')
-                res.status(200).send({noVideo:noVideo,user:req.user})
-            }
+            res.send({
+                name:req.user.name,
+                email:req.user.email,
+                uservideos:req.user.videos,
+                videos:videos,
+                userId:req.user._id,
+                notifications:req.user.notifications,
+                totalnotification:req.user.totalnotification
+
+            })
         }
     })
-
 })
+
+
 // route for more videos
 
 router.get('/more-video', isActive, function (req, res) {
@@ -127,7 +138,7 @@ router.get('/more-video', isActive, function (req, res) {
 router.get('/login', function (req, res) {
     res.status(200).json({ title: 'User login page' })
 })
-router.post('/login', signup.login)
+
 
 router.get('/share-story', function (req, res) {
     res.status(200).json({ title: 'Share your covid-19 story' })

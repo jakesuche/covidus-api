@@ -130,13 +130,15 @@ module.exports = {
 
       
     },
-    login:function(req,res){
-        passport.authenticate('local-login',{
-            successRedirect:'/user',
-            failureRedirect:"/login"
-        })
+    // login:function(req,res){
+    //     passport.authenticate('local-login',{
+    //         successRedirect:'/user',
+    //         failureRedirect:"/",
+    //         failureFlash:true
 
-    },
+    //     })
+
+    // },
     
     facebookAuth:passport.authenticate('facebook',{
         scope:"email"

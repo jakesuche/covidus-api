@@ -8,45 +8,79 @@ const UserModel = require('../models/user')
 const dotenv = require('dotenv')
 const TwitterStrategy = require('passport-twitter')
 console.log(process.env.GMAIL_NAME )
+let localStrategy = require('passport-local').Strategy;
 
 
 
 
 module.exports = function(){
-    passport.serializeUser(function(user,done){
-        done(null,user._id)
-    });
+
+    // passport.serializeUser(function(user,done){
+    //     done(null,user._id)
+    // });
     
-    passport.deserializeUser(function(id,done){
-        User.findOne({_id:id}, function(err,user){
-            done(err,user)
-        })
-    });
+    // passport.deserializeUser(function(id,done){
+    //     User.findOne({_id:id}, function(err,user){
+    //         done(err,user)
+    //     })
+    // });
     
-    passport.use(new LocalStrategy({
-        usernameField:'email'
-    },
-    function(username,password,done,res,req){
-        User.findOne({email:username}, function(err,user){
-            if(err) return done(err);
-            if(!user){
-                return done(null,false, {
-                    message: 'Incorrect username or password'
+    // passport.use(new LocalStrategy({
+    //     usernameField:'email'
+    // },
+    // function(username,password,done,res,req){
+    //     User.findOne({email:username}, function(err,user){
+    //         if(err) return done(err);
+    //         if(!user){
+    //             return done(null,false, {
+    //                 message: 'Incorrect username or password'
                     
-                })
+    //             })
                 
-            }
-            if(!user.validPassword(password)){
-                return done(null, false, {
-                    message:"Incorrect username or password"
-                })
-            }
-            return done(null,user)
+    //         }
+    //         if(!user.validPassword(password)){
+    //             return done(null, false, {
+    //                 message:"Incorrect username or password"
+    //             })
+    //         }
+    //         return done(null,user)
             
-        })
-    }
+    //     })
+    // }
     
-    ))
+    // ))
+    
+        passport.serializeUser(function(user, done){
+            done(null, user.id);
+        });
+    
+        passport.deserializeUser(function(id, done){
+            User.findById(id, function(err, user){
+                done(null, user)
+            })
+        })
+    
+        passport.use('local-login' , new localStrategy({
+            'usernameField':'email',
+            'passpordField':'password',
+            'passReqToCallback':true
+        },function(req, email,password, done){
+            User.findOne({'email':email}, function(err,user){
+                if(err){
+                    throw err;
+                }if(!user){
+                    req.flash('loginError', 'username or password incorrect');
+                    return done(null, false)
+                }
+                if(!user.checkPassword(req.body.password)){
+                    req.flash('loginError', 'username or password incorrect');
+                    return done(null, false)
+                }
+    
+                return done(null, user)
+            })
+        }))
+    
     
 
     dotenv.config({ path:'../config.env'});
