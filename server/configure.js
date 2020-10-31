@@ -16,7 +16,7 @@ const expressHandlebars = require('express-handlebars')
 const multer = require('multer')
 const cors = require('cors')
 let flash = require('express-flash');
-const connection = require('mongoose').createConnection(process.env.MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology:true})
+const connection = require('mongoose').createConnection(process.env.MONGODB_URI1,{useNewUrlParser:true,useUnifiedTopology:true})
 const mongoStore = require('connect-mongo')(session)
 
 const swaggerjsdoc = require('swagger-jsdoc')
@@ -78,7 +78,7 @@ module.exports = function(app){
     setPassport()
     app.use(expressValidator())
     app.use(function(req,res,next){
-        console.log(req.session)
+        // console.log(req.session)
         next()
     })
 

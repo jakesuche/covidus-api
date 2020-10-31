@@ -8,7 +8,7 @@ const configure = require('./server/configure')
 
 
 // MONGO DB ENVIRONMENTAL VARIABLE
-const DB = process.env.MONGODB_URI
+const DB = process.env.MONGODB_URI1
 
 // DATABASE CONNECTION WITH MONGOOSE
 mongoose.connect(DB,{useNewUrlParser:true,useUnifiedTopology:true});

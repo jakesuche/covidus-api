@@ -19,6 +19,7 @@ const passport = require('passport')
 
 
 
+
 // root route
 router.get('/', function (req, res) {
     Video.find({}).limit(12).exec(function (err, videos) {
@@ -32,7 +33,7 @@ router.get('/', function (req, res) {
             }
 
             res.status(200).send(data)
-            // res.render("home")
+        // res.render("home")
 
         }
     })
@@ -47,7 +48,7 @@ router.get('/covid-info', function (req, res) {
     var limit = parseInt(req.query.limit)
     console.log(limit)
     var MongoClient = require('mongodb').MongoClient;
-    var url = process.env.MONGODB_URI;
+    var url = process.env.MONGODB_URI1;
 
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
         if (err) throw err;
@@ -74,7 +75,7 @@ router.get('/searchCovidInfo', function (req, res) {
     var noMatch = null
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
     var MongoClient = require('mongodb').MongoClient;
-    var url = process.env.MONGODB_URI;
+    var url = process.env.MONGODB_URI1;
 
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
         if (err) throw err;

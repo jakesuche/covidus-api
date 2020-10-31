@@ -1,29 +1,38 @@
-var formidable = require('formidable')
-var fileSystem = require('fs') 
-var  { getVideoDuration}  = require('get-video-duration');
+// var formidable = require('formidable')
+var fileSystem = require('fs')
+var { getVideoDuration } = require('get-video-duration');
 const { request } = require('http');
 const Video = require('../models/Video')
 const path = require('path')
 const fs = require('fs')
+const multer = require('multer');
+// const AWS = require('aws-sdk')
+// const multers3 = require('multer-s3')
+// const uuid = require('uuid/v4')
 
-console.log(process.env.GMAIL_NAME +  'AND'  + process.env.GMAIL_PASS + 'ON SERVER.JS')
+
+
+    
+
 
 
 
 module.exports = {
+
+
 
     videoupload: function (req, res) {
         function saveImage() {
             let possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
             let vidUrl = `vid`;
-    
+
 
             for (i = 0; i <= 6; i++) {
                 vidUrl += possible.charAt(Math.floor(Math.random() * possible.length));
             }
 
-           
+
             // to check if there is image with equivalent with the one been uploaded
 
             Video.find({
@@ -37,6 +46,7 @@ module.exports = {
                 if (video.length > 0) {
                     saveImage();
                 } else {
+                    console.log(req.body)
                     let temPath = req.file.path; // to get the specific file
                     console.log(temPath)
                     let ext = path.extname(req.file.originalname).toLowerCase(); // to get the specific extension
@@ -66,9 +76,9 @@ module.exports = {
                             video.save(function (err,data) {
                                 if (err) {
                                     throw err;
-                               
+
                                 }else{
-                                    console.log(data)
+
                                     User.update({_id:req.user._id},{
                                         $push:{
                                             "videos": {
@@ -100,7 +110,7 @@ module.exports = {
                                     })
                                     res.status(200).send({message:"Video uploaded successfully"})
                                 }
-                               
+
 
                             })
 
@@ -136,15 +146,15 @@ module.exports = {
 
     }
 
-}
 
+}
 
     // videoupload:function(req,res){
     //     // if(req.session.user){
     //         var formData = new formidable.IncomingForm();
     //         formData.maxFileSize = 1000 * 1024 * 1024;
     //         formData.parse(request, function(error, fields, files){
-            
+
     //            var title = fields.title;
     //             var description = fields.description;
     //             var tags = fields.title;
@@ -152,11 +162,11 @@ module.exports = {
 
     //             var oldPathThumbnail = files.thumbnail.path;
     //             var thumbnail = "public/thumbnails" + new Date().getTime() + "-" +files.thumbnail.name
-                
+
     //             fileSystem.rename(oldPathThumbnail, thumbnail, function(error){
 
 
-               
+
 
     //             var oldPath = files.video.path;
     //             var  newPath = "public/videos/" + new Date().getTime() + "_" + files.video.name;
@@ -201,7 +211,7 @@ module.exports = {
     //                             }
     //                             // res.redirect('/')
     //                             res.writeHead(200,{'content-type':'video/audio'})
-                               
+
     //                         })
     //                     })
     //                 })
@@ -211,7 +221,7 @@ module.exports = {
 
 
     //         });
-            
+
     //     // }else{
 
     //     //     res.redirect('/login')
