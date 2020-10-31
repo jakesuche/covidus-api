@@ -16,6 +16,8 @@ const expressHandlebars = require('express-handlebars')
 const multer = require('multer')
 const cors = require('cors')
 let flash = require('express-flash');
+const connection = require('mongoose').createConnection(process.env.MONGODB_URI,{useNewUrlParser:true,useUnifiedTopology:true})
+const mongoStore = require('connect-mongo')(session)
 
 const swaggerjsdoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -37,7 +39,11 @@ const document = require('../swagger.json')
 
 
 const swaggerDocs = swaggerjsdoc(swaggerOptions)
+const sessionStore = new  mongoStore({
+    mongooseConnection:connection,
+    collection:'session'
 
+})
 
 
 module.exports = function(app){
@@ -53,17 +59,28 @@ module.exports = function(app){
 
     app.use(multer({dest: './public/upload/temp'}).single('file')); /// enables image uploads
     app.use('/public/', express.static(path.join(__dirname ,'../public'))); 
-     app.use(session({
+    app.use(session({
         secret:"covidusapp",
-        resave:true,
-        saveUninitialized:true
+        resave:false,
+        saveUninitialized:true,
+        store:sessionStore,
+        cookie:{
+            maxAge:1000 * 60 * 60 * 24,
+            
+        },
+        
     }));
+   
     app.use(flash());
     app.use('/public/', express.static(path.join(__dirname ,'../public'))); 
     app.use(passport.initialize());
     app.use(passport.session());
     setPassport()
     app.use(expressValidator())
+    app.use(function(req,res,next){
+        console.log(req.session)
+        next()
+    })
 
     global.User = require('../models/user')
     global.Video = require('../models/Video')

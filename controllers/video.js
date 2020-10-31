@@ -38,6 +38,7 @@ module.exports = {
                     saveImage();
                 } else {
                     let temPath = req.file.path; // to get the specific file
+                    console.log(temPath)
                     let ext = path.extname(req.file.originalname).toLowerCase(); // to get the specific extension
                     let targetPath = path.resolve('./public/upload/' + vidUrl + ext); // stores all the files permanently in this location
 
@@ -52,10 +53,12 @@ module.exports = {
 
                             let video = new Video({
                                 filename: vidUrl + ext,
-                                title: req.body.title, /// requesting the title from the body handlebar
+                                title: req.body.title,
+                                filename: vidUrl + ext, /// requesting the title from the body handlebar
                                 description: req.body.description,
                                 filePath:targetPath,
-                                user_id:req.user._id 
+                                user_id:req.user._id,
+                                caption:req.body.caption
                                 // the user has been tied to th 
 
                             });

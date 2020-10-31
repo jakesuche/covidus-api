@@ -21,25 +21,25 @@ const passport = require('passport')
 
 // root route
 router.get('/', function (req, res) {
-    Video.find({}).limit(12).exec(function(err,videos){
-        if(err){
+    Video.find({}).limit(12).exec(function (err, videos) {
+        if (err) {
             return res.status(404).send(err)
-        }else{
+        } else {
             let data = {
                 title: 'covidus-covid 19 travelling guide for travellers ',
-                videos:videos,
-                message:req.flash('loginError')
+                videos: videos,
+                message: req.flash('loginError')
             }
-            
-             res.status(200).send(data)
-            // res.render("home")
+
+            //  res.status(200).send(data)
+            res.render("home")
 
         }
     })
     //  res.status(200).json({title:'welcome to covidus'})
-    
+
     // res.status(200).send(data)
-    
+
 })
 
 //infotmation about travelling restriction in a country
@@ -54,13 +54,13 @@ router.get('/covid-info', function (req, res) {
         var dbo = db.db("covidus");
         dbo.collection("covidGuide").find({}).limit(limit).toArray(function (err, result) {
             if (err) throw err;
-            
+
             res.send(result)
             db.close();
             console.log(result);
-           
-            
-            
+
+
+
         });
     });
 
@@ -69,7 +69,7 @@ router.get('/covid-info', function (req, res) {
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
-router.get('/searchCovidInfo', function(req,res){
+router.get('/searchCovidInfo', function (req, res) {
     // var search = req.params.search
     var noMatch = null
     const regex = new RegExp(escapeRegex(req.query.search), 'gi');
@@ -79,18 +79,18 @@ router.get('/searchCovidInfo', function(req,res){
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
         if (err) throw err;
         var dbo = db.db("covidus");
-        dbo.collection("covidGuide").find({adm0_name:regex}).toArray(function (err, result) {
-            if(err){
+        dbo.collection("covidGuide").find({ adm0_name: regex }).toArray(function (err, result) {
+            if (err) {
                 console.log(err)
-            }else{
-                if(result.length < 1){
+            } else {
+                if (result.length < 1) {
                     noMatch = "No Match for this query, please try again"
                 }
-                    res.send({result:result,noMatch:noMatch})
-                    db.close();
-                    console.log(result);
-            } 
-            
+                res.send({ result: result, noMatch: noMatch })
+                db.close();
+                console.log(result);
+            }
+
         });
     });
 
@@ -100,25 +100,30 @@ router.post('/login',passport.authenticate('local-login',{
     'successRedirect':'/user',
     'failureRedirect':'/',
     "failureMessage":true
-    
+
 
 })) 
-router.get('/user',isLogged,function(req,res){
-    
-    Video.find({}).exec(function(err,videos){
-        if(err){
+
+
+router.get('/user', isLogged, function (req, res) {
+
+    Video.find({}).exec(function (err, videos) {
+        if (err) {
             throw err
-        }else{
+        } else {
             res.send({
-                name:req.user.name,
-                email:req.user.email,
-                uservideos:req.user.videos,
-                videos:videos,
-                userId:req.user._id,
-                notifications:req.user.notifications,
-                totalnotification:req.user.totalnotification
+                name: req.user.name,
+                email: req.user.email,
+                uservideos: req.user.videos,
+                videos: videos,
+                userId: req.user._id,
+                notifications: req.user.notifications,
+                totalnotification: req.user.totalnotification
 
             })
+            console.log(req.headers)
+
+
         }
     })
 })
@@ -144,7 +149,7 @@ router.get('/share-story', function (req, res) {
     res.status(200).json({ title: 'Share your covid-19 story' })
 })
 // post route  for  video file upload 
-router.post('/postVideo',isLogged, video.videoupload)
+router.post('/postVideo', isLogged, video.videoupload)
 
 
 

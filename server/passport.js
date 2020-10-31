@@ -9,6 +9,7 @@ const dotenv = require('dotenv')
 const TwitterStrategy = require('passport-twitter')
 console.log(process.env.GMAIL_NAME )
 let localStrategy = require('passport-local').Strategy;
+let HeaderStrategy = require('passportjs-header')
 
 
 
@@ -59,6 +60,9 @@ module.exports = function(){
                 done(null, user)
             })
         })
+
+       
+        
     
         passport.use('local-login' , new localStrategy({
             'usernameField':'email',
