@@ -31,8 +31,8 @@ router.get('/', function (req, res) {
                 message: req.flash('loginError')
             }
 
-            //  res.status(200).send(data)
-            res.render("home")
+            res.status(200).send(data)
+            // res.render("home")
 
         }
     })
