@@ -75,7 +75,8 @@ module.exports = {
                                                 _id:data._id,
                                                 content:req.body.description,
                                                 filename:vidUrl + ext,
-                                                title:req.body.title
+                                                title:req.body.title,
+                                                caption:req.body.caption
                                             }
                                         }
                                     },function(err,success){
