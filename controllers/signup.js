@@ -67,7 +67,7 @@ module.exports = {
                                         console.log('error for increment', err)
                                     } else {
 
-                                        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION })
+                                        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: process.env.JWT_EXPIRATION })
                                         console.log(data)
                                         res.json({
                                             message: 'Account registered successfully',
@@ -158,7 +158,7 @@ module.exports = {
                     res.status(401).send({message:'incorrect email or password'})
               
                 }else{
-                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION })
+                    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: process.env.JWT_EXPIRATION })
                     res.status(200).send({
                         status: 'success',
                         token,

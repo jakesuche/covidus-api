@@ -11,7 +11,7 @@ module.exports =function(req,res,next){
     if(token == null){
         return res.status(401).send({message:'please login'})
     }
-    jwt.verify(token, process.env.JWT_SECRET, function(err,data){
+    jwt.verify(token, process.env.JWT_SECRETE, function(err,data){
         if(err){
             res.status(400).send({message:`${err.message}, pls login again to have access`})
             console.log(err.message)
