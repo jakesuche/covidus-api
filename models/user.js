@@ -50,7 +50,7 @@ let UserSchema = new Schema({
         type:Number,
         default:0
     },
-    videos: [
+    myVideos: [
     {
         _id:String,
         content:String,

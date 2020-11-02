@@ -81,7 +81,7 @@ module.exports = {
 
                                     User.update({_id:req.user},{
                                         $push:{
-                                            "videos": {
+                                            "myVideos": {
                                                 _id:data._id,
                                                 content:req.body.description,
                                                 filename:vidUrl + ext,
