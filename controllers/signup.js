@@ -69,7 +69,7 @@ module.exports = {
 
                                         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRETE, { expiresIn: process.env.JWT_EXPIRATION })
                                         console.log(data)
-                                        res.json({
+                                        res.status(200).json({
                                             message: 'Account registered successfully',
                                             token,
                                             name: user.name,
