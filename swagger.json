@@ -19,6 +19,14 @@
         "http",
         "https"
     ],
+    "securityDefinitions": {
+       "Bearer":{
+           "type":"apiKey",
+           "description": " pls login",
+           "in": "header",
+           "name": "Authorization"
+       }
+    },
     "paths": {
         "/": {
             "get": {
@@ -49,12 +57,20 @@
                 "produces": [
                     "application/json"
                 ],
+                "security": [
+                    {
+                        "Bearer" : []
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
                     },
-                    "404":{
-                        "description": "User not authenticated"
+                    "401":{
+                        "description": "Empty token"
+                    },
+                    "400":{
+                        "description": "Expire token"
                     }
                 }
             }
@@ -154,6 +170,11 @@
                 "consumes": [
                     "multipart/json"
                 ],
+                "security": [
+                    {
+                        "Bearer":[]
+                    }
+                ],
                 "parameters": [
                     {
                         "name": "file",
@@ -220,10 +241,17 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "image upload successfully",
+                        "description": "Success",
+
                         "schema": {
                             "$ref": "#/definitions/Login"
                         }
+                    },
+                    "400":{
+                        "description": " empty request body"
+                    },
+                    "401":{
+                        "description": "Invalid password or email"
                     }
                 }
             }

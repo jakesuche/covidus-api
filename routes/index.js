@@ -15,7 +15,7 @@ const isActive = require('../controllers/isActive')
 const { verify } = require('../controllers/verifyAccount')
 const isLogged = require('../controllers/isLogged');
 const passport = require('passport')
-
+const jwt = require('jsonwebtoken')
 
 
 
@@ -32,8 +32,8 @@ router.get('/', function (req, res) {
                 message: req.flash('loginError')
             }
 
-            res.status(200).send(data)
-        // res.render("home")
+           res.status(200).send(data)
+        //res.render("home")
 
         }
     })
@@ -97,36 +97,38 @@ router.get('/searchCovidInfo', function (req, res) {
 
 })
 
-router.post('/login',passport.authenticate('local-login',{
-    'successRedirect':'/user',
-    'failureRedirect':'/',
-    "failureMessage":true
+// router.post('/login',passport.authenticate('local-login',{
+//     'successRedirect':'/user',
+//     'failureRedirect':'/',
+//     "failureMessage":true
 
 
-})) 
+// })) 
+router.post('/login', signup.login)
 
 
-router.get('/user', isLogged, function (req, res) {
+router.get('/user',  isLogged, function (req, res) {
+    
+    Video.find({}).exec(function(err,videos){
+        if(err){
+            res.status(500).send({message:"internal server error"})
+            console.log(err)
+        }else{
+            User.findById({_id:req.user}, function(err, user){
+                if(err){
+                    console.log(err)
+                }else{
+                    res.send({
+                        user:user,
+                        videos:videos
+                        
+                    })
 
-    Video.find({}).exec(function (err, videos) {
-        if (err) {
-            throw err
-        } else {
-            res.send({
-                name: req.user.name,
-                email: req.user.email,
-                uservideos: req.user.videos,
-                videos: videos,
-                userId: req.user._id,
-                notifications: req.user.notifications,
-                totalnotification: req.user.totalnotification
-
+                }
             })
-            console.log(req.headers)
-
-
         }
     })
+
 })
 
 

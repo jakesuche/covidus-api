@@ -20,7 +20,9 @@ let UserSchema = new Schema({
         // required:true
     },
     password:{
-        type:String
+        type:String,
+        select:false
+       
     },
     dateCreated:{
         type:Date,

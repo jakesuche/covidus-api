@@ -67,7 +67,7 @@ module.exports = {
                                 filename: vidUrl + ext, /// requesting the title from the body handlebar
                                 description: req.body.description,
                                 filePath:targetPath,
-                                user_id:req.user._id,
+                                user_id:req.user,
                                 caption:req.body.caption
                                 // the user has been tied to th 
 
@@ -79,7 +79,7 @@ module.exports = {
 
                                 }else{
 
-                                    User.update({_id:req.user._id},{
+                                    User.update({_id:req.user},{
                                         $push:{
                                             "videos": {
                                                 _id:data._id,
@@ -94,7 +94,7 @@ module.exports = {
                                             console.log('err for push', err)
                                         }else{
                                             console.log(success)
-                                            User.updateOne({email:req.user.email},{
+                                            User.updateOne({_id:req.user},{
                                                 $push:{"notifications":{
                                                     message:'Your video was uploaded successfully'
                                                 }},
