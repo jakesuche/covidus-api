@@ -52,12 +52,18 @@ let UserSchema = new Schema({
     },
     myVideos: [
     {
-        _id:String,
-        content:String,
-        filename:String,
-        title:String
+        ObjectId:{
+            type:ObjectId
+        },
+        videoId:String,
+        title:String,
+        caption:String,
+        videoUrl:String,
+        country:String
+        
 
     }   
+    
     ],
     resetLink: {
         data:String,

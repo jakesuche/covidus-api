@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router()
 const signup = require('../controllers/signup')
-const video = require('../controllers/video')
+
 var formidable = require('formidable')
 var fileSystem = require('fs')
 var { getVideoDuration } = require('get-video-duration');
@@ -16,6 +16,16 @@ const { verify } = require('../controllers/verifyAccount')
 const isLogged = require('../controllers/isLogged');
 const passport = require('passport')
 const jwt = require('jsonwebtoken')
+const { videoupload } = require('../controllers/Videouploadmiddle')
+const aws = require('../controllers/video')
+// const Multer = require('multer')
+
+// const multer = Multer({
+//     storage:Multer.memoryStorage(),
+//     limits: {
+//         fileSize: 20 * 1024 * 1024
+//     }
+// })
 
 
 
@@ -32,8 +42,8 @@ router.get('/', function (req, res) {
                 message: req.flash('loginError')
             }
 
-           res.status(200).send(data)
-        //res.render("home")
+          // res.status(200).send(data)
+        res.render("home")
 
         }
     })
@@ -114,6 +124,7 @@ router.get('/user',  isLogged, function (req, res) {
             res.status(500).send({message:"internal server error"})
             console.log(err)
         }else{
+            console.log(req.user, 'kgjhghhjhgjh')
             User.findById({_id:req.user}, function(err, user){
                 if(err){
                     console.log(err)
@@ -152,7 +163,49 @@ router.get('/share-story', function (req, res) {
     res.status(200).json({ title: 'Share your covid-19 story' })
 })
 // post route  for  video file upload 
-router.post('/postVideo', isLogged, video.videoupload)
+router.post('/postVideo', isLogged, aws.Videoupload.any(), function(req,res){
+
+    let video = new Video({
+        videoUrl:req.files[0].location,
+        title:req.body.title,
+        UserId:req.user,
+        caption:req.body.caption,
+        country:req.body.country
+    })
+    video.save(function(err){
+        if(err){
+            console.log(err)
+        }else{
+            User.updateOne({_id:req.user},{
+                $push:{
+                    "myVideos":{
+                        videoUrl:req.files[0].location,
+                        title:req.body.title,
+                        caption:req.body.caption
+                        
+                    }
+                }
+            }, function(err,result){
+                if(err){
+                    console.log(err)
+                }else{
+                    console.log(result)
+                    res.status(200).send({message:'Video uploaded successfully'})
+
+                }
+            })
+        }
+        
+        
+    })
+   
+
+    
+    
+//    res.send({video:req.files[0].location})
+
+
+})
 
 
 
@@ -174,7 +227,7 @@ router.get('twiiter/auth', signup.twitterAuth)
 router.get('/auth/twitter/callback', signup.twitterCallBack)
 
 // post route  for  video file upload 
-router.post('/postVideo', video.videoupload)
+
 
 // route for contact
 router.get('/contact', function (req, res) {

@@ -25,6 +25,7 @@
     "formidable": "^1.2.2",
     "get-video-duration": "^3.0.2",
     "hogan.js": "^3.0.2",
+    "install": "^0.13.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
     "mkdirp": "^1.0.4",
@@ -43,6 +44,7 @@
     "passportjs-header": "^1.0.2",
     "serve-favicon": "^2.5.0",
     "swagger-jsdoc": "^4.3.1",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "uuid": "^8.3.1"
   }
 }

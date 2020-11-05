@@ -74,8 +74,6 @@ module.exports = {
                                             token,
                                             name: user.name,
                                             email: user.email
-
-
                                         })
                                     }
                                 })

@@ -17,11 +17,13 @@ const newVideo = new Schema({
         type:Date,
         default:Date.now()
     },
-    user:{
-        id:ObjectId,
-        name:{
-            type:String
-        }
+    videoUrl:{
+        type:String,
+
+    },
+    country:String,
+    UserId:{
+        type:String
     },
     likes:{
         type:Number,
