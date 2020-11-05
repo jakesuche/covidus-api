@@ -55,27 +55,46 @@ router.get('/', function (req, res) {
 
 //infotmation about travelling restriction in a country
 router.get('/covid-info', function (req, res) {
-    var limit = parseInt(req.query.limit)
-    console.log(limit)
+    // var limit = parseInt(req.query.limit)
+    // console.log(req.query)
+    const CurrentPage = parseInt(req.query.currentPage) || 1
+    const limit = parseInt(req.query.limit) || 30
+
+    
+
     var MongoClient = require('mongodb').MongoClient;
     var url = process.env.MONGODB_URI;
 
     MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
         if (err) throw err;
         var dbo = db.db("covidus");
-        dbo.collection("covidGuide").find({}).limit(limit).toArray(function (err, result) {
-            if (err) throw err;
+        dbo.collection("covidGuide").find({}).skip((limit * CurrentPage) -limit).limit(limit).toArray(function (err, result) {
+           dbo.collection('covidGuide').countDocuments(function(err,count){
+               if(err){
+                   console.log(err)
+               }
+              
 
-            res.send(result)
-            db.close();
-            console.log(result);
+               res.status(200).send({
+                   counts:result.length,
+                   currentPage:CurrentPage,
+                   pages:Math.ceil(count/ limit),
+                   data:result
+                   
+                   
+               })
+               db.close();
+               console.log(result);
+              })
+              
+           })
 
 
 
         });
     });
 
-})
+
 
 function escapeRegex(text) {
     return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
