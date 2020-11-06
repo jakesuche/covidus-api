@@ -217,7 +217,7 @@ router.post('/postVideo', isLogged, aws.Videoupload.any(), function(req,res){
         
         
     })
-    res.send(req.files)
+   
    
 
     

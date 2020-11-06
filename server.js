@@ -24,13 +24,13 @@ app.listen(process.env.PORT || 5000, function () {
     console.log(`app listening at port: `)
 })
 
-console.log('HSHHDHDHDHDBD', process.env.PORT)
+
 
 const fs = require('fs')
 const file = fs.readFileSync('./controllers/template/email.handlebars','utf-8')
 app.set('views', __dirname + '/views' )
 configure(app)
-console.log(process.env.GMAIL_NAME +  'AND'  + process.env.GMAIL_PASS + 'ON SERVER.JS')
+
 
 
 
