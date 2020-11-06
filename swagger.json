@@ -184,20 +184,14 @@
                         "type": "file"
                     },
                     {
-                        "name": "content",
-                        "in": "formData",
-                        "description": "Additional data to pass to server",
-                        "required": false,
-                        "type": "string"
-                    },
-                    {
-                        "name":"county",
-                        "in":"formData",
-                        "description": "Additional file to pass to server",
-                        "required": false,
-                        "type":"string"
+                        "in": "body",
+                        "name": "body",
+                        "description": "Created user object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Videoupload"
+                        }
                     }
-                    
 
                 ],
                 "responses": {
@@ -426,7 +420,7 @@
                 "title": {
                     "type": "string"
                 },
-                "content": {
+                "caption": {
                     "type": "string"
                 },
                 "country": {
