@@ -60,7 +60,24 @@
                     "200": {
                         "description": " successfull response"
                     }
-                }
+                },
+                "parameters": [
+                    {
+                       
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "Query the number of data"
+                    },
+                    {
+                        "name": "currentPage",
+                        "in": "query",
+                        "type": "string",
+                        "description": "A search query"
+                    }
+                ]
             }
         },
         "/postVideo": {

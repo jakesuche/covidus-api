@@ -28,6 +28,7 @@ let possible = 'abcdefghijklmnopqrstuvwxyz0123456789';
             }
 const s0 = new AWS.S3({});
 let posit
+
 const upload = multer({
     storage: multerS3({
         s3: s0,

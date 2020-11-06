@@ -53,25 +53,65 @@ router.get("/", function (req, res) {
   // res.status(200).send(data)
 });
 router.get("/getvideos", function (req, res) {
-  Video.find({})
-    .limit(12)
-    .exec(function (err, videos) {
-      if (err) {
-        return res.status(404).send(err);
-      } else {
-        let data = {
-          title: "covidus-covid 19 travelling guide for travellers ",
-          videos: videos,
-          message: req.flash("loginError"),
-        };
 
-        res.status(200).send({ message: videos, sucess: true });
-      }
-    });
+const CurrentPage = parseInt(req.query.currentPage) || 1;
+  const limit = parseInt(req.query.limit) || 12;
+
+  Video.find({})
+  .sort({timeStamp:-1})
+    .skip(limit * CurrentPage - limit)
+      .limit(limit)
+    .exec(function (err, videos) {
+      Video.countDocuments(function(err,count){
+        if (err) {
+            return res.status(404).send(err);
+          } else {
+            let data = {
+              title: "covidus-covid 19 travelling guide for travellers ",
+              counts:videos.length,
+            //   currentPage:CurrentPage,
+            //   pages:Math.ceil(count/limit),
+              data:videos
+            };
+    
+            res.status(200).json({sucess: true ,data});
+            
+          }
+        });
+      })
   //  res.status(200).json({title:'welcome to covidus'})
 
   // res.status(200).send(data)
 });
+
+
+router.get("/getmoreVideos",  function (req, res) {
+    const CurrentPage = parseInt(req.query.currentPage) || 1;
+  const limit = parseInt(req.query.limit) || 12;
+
+  Video.find({})
+  .sort({timeStamp:-1})
+    .skip(limit * CurrentPage - limit)
+      .limit(limit)
+    .exec(function (err, videos) {
+      Video.countDocuments(function(err,count){
+        if (err) {
+            return res.status(404).send(err);
+          } else {
+            let data = {
+              
+              counts:videos.length,
+              currentPage:CurrentPage,
+              pages:Math.ceil(count/limit),
+              data:videos
+            };
+    
+            res.status(200).json({sucess: true ,data});
+            
+          }
+        });
+      })
+  });
 
 //infotmation about travelling restriction in a country
 router.get("/covid-info", function (req, res) {
@@ -172,13 +212,6 @@ router.get("/user", isLogged, function (req, res) {
 
 // route for more videos
 
-router.get("/getmoreVideos", isActive, function (req, res) {
-  Video.find({})
-    .lean()
-    .exec(function (err, videos) {
-      res.send({ videos: videos });
-    });
-});
 // login and authentication
 router.get("/login", function (req, res) {
   res.status(200).json({ title: "User login page" });
