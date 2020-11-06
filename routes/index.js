@@ -41,9 +41,30 @@ router.get('/', function (req, res) {
                 videos: videos,
                 message: req.flash('loginError')
             }
+            res.sendFile(__dirname + '/home.html')
+        //    res.status(200).send(data)
 
-           res.status(200).send(data)
-        //res.render("home")
+        
+        }
+    })
+    //  res.status(200).json({title:'welcome to covidus'})
+
+    // res.status(200).send(data)
+
+})
+router.get('/getvideos', function (req, res) {
+    Video.find({}).limit(12).exec(function (err, videos) {
+        if (err) {
+            return res.status(404).send(err)
+        } else {
+            let data = {
+                title: 'covidus-covid 19 travelling guide for travellers ',
+                videos: videos,
+                message: req.flash('loginError')
+            }
+
+           //res.status(200).send(data)
+        res.render("home")
 
         }
     })
@@ -164,7 +185,7 @@ router.get('/user',  isLogged, function (req, res) {
 
 // route for more videos
 
-router.get('/more-video', isActive, function (req, res) {
+router.get('/getmoreVideos', isActive, function (req, res) {
     Video
         .find({})
         .lean()

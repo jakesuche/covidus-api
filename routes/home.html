@@ -1,0 +1,498 @@
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,800&amp;subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+<style>
+  body{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+  }
+  img{
+    max-width: 100%;
+  }
+  .container{
+    width: 100%;
+    max-width: 1170px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .menu{
+    margin-top: 18px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+  
+  .menu-logo{
+    display: flex;
+    align-items: center;
+  }
+  
+  .avatar{
+    width: 57px;
+    height: 57px;
+    background:url(https://cdn.discordapp.com/avatars/538405353176432660/2c7976e2bde315224181763f6f845de9.png);
+    background-size: 100%;
+    border-radius: 50%;
+  }
+  
+  .discription{
+    margin-left: 9px;
+  }
+  
+  .name{
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+  }
+  
+  .menu-list{
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-button{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 800;
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid #2b2b2b;
+    color: #2b2b2b;
+    padding: 13px 22px;
+    margin-right: 34px;
+  }
+  
+  .menu-list a{
+    text-decoration: none;
+    color: #2b2b2b;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-right: 34px;
+      
+    position: relative;
+    display: inline-block;
+  }
+  
+  /* Дальше идет код для анимации подчеркивания */
+  /* Взято отсюда https://codepen.io/srirachachacha/pen/pNyQoY */
+  /* Переработано */
+  /* Найдено здесь https://speckyboy.com/underline-text-effects-css/ */
+  
+  .menu-list a::after {
+    content: "";
+    position: absolute;
+    top: 90%;
+    height: 3px;
+    width: 0%;
+    left: 50%;
+      transition: 0.3s ease-out all .1s;
+  }
+  
+  .menu-list a:hover:after {
+    width: 110%;
+    left: -5%;
+    background-color: rgba(0, 0, 0, 0.6);
+      transition: 0.5s cubic-bezier(.2,.2,.5,2) all;
+  }
+  
+  /* *********Section 2******** */
+  .hero{
+    padding-top: 112px;
+    padding-bottom: 112px;
+    background:  linear-gradient(to right, rgba(255,255,255,1) 0%,rgba(255,255,255,1) 40%,rgba(0,0,0,0) 100%), url(https://st2.depositphotos.com/3580719/9492/v/950/depositphotos_94929442-stock-illustration-seamless-background-with-simple-hand.jpg) no-repeat right bottom;
+  }
+  
+  .hero-subtitle{
+    font-family: "Open Sans";
+    font-size: 32px;
+    font-weight: 400;
+  }
+  
+  .hero-title{
+    font-size: 45px;
+    font-weight: 800;
+    margin-top: 0px;
+    margin-bottom: 5px;
+  }
+  
+  .hero-description{
+    font-size: 18px;
+    color: #6a696b;
+  }
+  .hero-social{
+    margin-top: 30px;
+  }
+  
+  .social{
+    display: inline-block;
+    width: 41px;
+    height: 41px;
+    margin-right: 10px;
+    color: #fff;
+    text-align: center;
+    line-height: 41px;
+  }
+  
+  .vk-bg{
+    background-color: #56acef;
+  }
+  .facebook-bg{
+    background-color: #3a5898;
+  }
+  .instagram-bg{
+    background-color: #13578a;
+  }
+  .behance-bg{
+    background-color: #1869ff;
+  }
+  
+  .hero-buttons{
+    margin-top: 40px;
+  }
+  .button{
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    text-decoration: none;
+    background-color: #2b2a2c;
+    border-radius: 50px;
+    padding: 20px 34px;
+    
+  }
+  .button-primery{
+    color: #fff;
+    margin-right: 17px;
+    margin-bottom: 10px;
+  }
+  .button-o{
+    background-color: #fff;
+    color: #6a696b;
+    border: 1px solid #6a696b;
+    
+  }
+  
+  /******* Список проектов ***********/
+  
+  /* Карточка */
+  .projects{
+    padding: 100px 0;
+  }
+  .project-cards{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .p-card{
+    min-height: 370px;
+    width: 370px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+    margin-bottom: 50px;
+  }
+  .card_img{
+    height: 300px;
+  }
+  .landing_img{
+    background: url(https://hyperhost.ua/info/wp-content/uploads/2018/04/What-is-a-Landing-Page.png) no-repeat center;
+    background-size: cover;
+  }
+  .landing_img2{
+    background: url(https://d1r27dnp1fh4g5.cloudfront.net/img/pages/fe-thumb/appton-900x600_113586e5ba47731b2f90239b0e36e9d5.jpg) no-repeat center;
+    background-size: cover;
+  }
+  .landing_img3{
+    background: url(https://speedlancer-production-uploads.s3.amazonaws.com/uploads/product/thumbnail/11/simple-landing-page-teaser-page-design-screenshot.jpg) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img4{
+    background: url(https://www.sketchappsources.com/resources/source-image/customer-service-page-jacobthejus.png) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img5{
+    background: url(https://www.verticalresponse.com/sites/www.verticalresponse.com/files/template-4-VR-landing-page-builder.jpg) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img6{
+    background: url(https://cdn.colorlib.com/wp/wp-content/uploads/sites/2/free-landing-page-wordpress-themes.jpg) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img7{
+    background: url(https://www.bigcommerce.com/blog/wp-content/uploads/2017/04/ecommerce-landing-pages-example-2-750x581.jpg) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img8{
+    background: url(https://www.sketchappsources.com/resources/source-image/sitica-landing-page-realvjy.png) no-repeat center;
+    background-size: cover;
+  }
+  
+  .landing_img9{
+    background: url(https://cdn.dribbble.com/users/1348777/screenshots/4056492/cover.png) no-repeat center;
+    background-size: cover;
+  }
+  
+  .pcard_info{
+    padding: 19px 13px;
+  }
+  .category{
+    display: block;
+    font-size: 12px;
+    color: #2b2a2c;
+  }
+  .card-title{
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 800;
+    margin-top: 10px;
+  }
+  
+  .footer{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
+    background-color: #2b2a2c;
+    padding: 20px 0;
+    color: #8d8d8e;
+  }
+  .footer a{
+    color: #8d8d8e;
+    text-decoration: none;
+  }
+  .footer-info{
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer-text{
+    display: flex;
+    align-items: center;
+  }
+  .copyright{
+    padding-right: 16px;
+    margin-right: 16px;
+    border-right: 1px solid #413f41;
+    font-size: 14px;
+  }
+  .footer-social-link{
+    font-size: 20px;
+    margin-right: 13px;
+  }
+  .footer-menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-menu a{
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 30px;
+  }
+  .footer-button{
+    font-size: 14px;
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 50px;
+    border: 2px solid #8d8d8e;
+    color: #2b2b2b;
+    padding: 5px 24px;
+    margin-right: 34px;
+  }
+  
+  @media (max-width:1220px){
+    .container{
+      width: 1000px;
+    }
+    .p-card{
+      width: 48%;
+    }
+  /*   .footer-info{
+      justify-content: space-between;
+    } */
+  }
+  @media (max-width: 1050px){
+    .container{
+      width: 850px;
+    }
+    .p-card{
+      width: 48%;
+    }
+  }
+  @media (max-width: 900px){
+    .menu{
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .container{
+      width: 95%;
+    }
+    .p-card{
+      width: 48%;
+      margin: 20px auto;
+    }
+    
+    .footer-menu nav{
+      display: flex;
+      flex-direction: column;
+    }
+  
+  }
+  @media (max-width: 700px){
+    .menu{
+      flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .menu-list a{
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    .menu-button{
+      display: none;
+    }
+    .hero{
+      background: none;
+      padding-top: 12px;
+    padding-bottom: 0px;
+    }
+    .hero-info{
+      margin: 0 auto;
+    }
+    .copyright{
+      display: none;
+    }
+    .footer-info{
+      justify-content: space-around;
+    }
+    .f-write{
+      display: none;
+    }
+    
+    .container{
+      width: 95%;
+    }
+    .p-card{
+      width: 90%;
+      margin: 20px auto;
+    }
+  }
+  
+</style>
+<header>
+<!-- Левая часть шапки - лого-аватар, имя и "звание"   -->
+  <div class="container">
+    <div class="menu">
+    <div class="menu-logo">
+      <div class="avatar"></div>
+      <div class="discription">
+        <span class="name">
+          Covidus API
+        </span>
+        <small class="d_small">
+          Covid-19 travel guide for travellers in all country
+        </small>
+      </div>
+    </div>
+<!--  Правая часть шапки - меню и кнопка    -->
+    <!-- <div class="menu-list">
+      <a class="custom-underline" href="#">Мои работы</a>
+      <a class="custom-underline" href="#">Обо мне</a>
+      <a class="custom-underline" href="#">Контакты</a>
+      <button class="menu-button">
+        Написать
+      </button>
+    </div> -->
+  </div>
+  </div>
+ 
+<!--  Главная  -->
+  <div class="container">
+    <section class="hero">
+      <div class="hero-info">
+        <span class="hero-subtitle">
+          HELLO
+        </span>
+        <h1 class="hero-title">
+          CLICK ON THE BUTTON BELOW <br>TO ACCESS THE <span style="background-color: #2b2a2c; color:#fff"> API</span>
+        </h1>
+        <small class="hero-description">
+         
+        </small>
+        <!-- <div class="hero-social">
+          <a href="#" class="social vk-bg">
+            <i class="fab fa-vk"></i>
+          </a>
+          <a href="#" class="social facebook-bg">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="social instagram-bg">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="social behance-bg">
+            <i class="fab fa-behance"></i>
+          </a>
+        </div> -->
+        <div class="hero-buttons">
+          <a href="https://covidus1.herokuapp.com/api" class="button button-primery">
+            API
+          </a>
+          
+        </div>
+      </div>
+    </section>
+  </div>
+  
+    -->
+     
+
+ 
+<!-- Футер   -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-info">
+        <div class="footer-text">
+          <span class="copyright">
+            © Google developer scholarship team
+          </span>
+          <div class="footer-social">
+            <a href="#" class="footer-social-link vk-f-bg">
+            <i class="fab fa-vk"></i>
+          </a>
+          <a href="#" class="footer-social-link facebook-f-bg">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="footer-social-link instagram-f-bg">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="footer-social-link behance-f-bg">
+            <i class="fab fa-behance"></i>
+          </a>
+          </div>
+        </div>
+        <!-- <div class="footer-menu">
+          <nav>
+            <a href="#">Мои работы</a>
+            <a href="#">Обо мне</a>
+            <a href="#">Контакты</a>
+          </nav>
+          <div class="f-write">
+            <a href="#" class="footer-button">Написать</a>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </footer>
+</header>
+

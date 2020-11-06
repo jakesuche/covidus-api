@@ -28,10 +28,10 @@
        }
     },
     "paths": {
-        "/": {
+        "/getvideos": {
             "get": {
                 "tags": [
-                    "Root route"
+                    "get videos"
                 ],
                 "summary": "get to home route",
                 "produces": [
@@ -47,104 +47,10 @@
                 }
             }
         },
-        "/user": {
+        "/getmoreVideos": {
             "get": {
                 "tags": [
-                    "Authenticated route for user"
-                ],
-                "description": "This is an anthenticated route after user user signs in",
-                "summary": "User home",
-                "produces": [
-                    "application/json"
-                ],
-                "security": [
-                    {
-                        "Bearer" : []
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation"
-                    },
-                    "401":{
-                        "description": "Empty token"
-                    },
-                    "400":{
-                        "description": "Expire token"
-                    }
-                }
-            }
-        },
-        "/covid-info": {
-            "get": {
-                "tags": [
-                    "Covid-19 info For Countries"
-                ],
-                "summary": "Covid-19 restrictions for countries",
-                "description": "to get countries and their their covid restrictions",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Covid-info"
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "in": "query",
-                        "name": "limit",
-                        "schema": {
-                            "type": "number"
-                        },
-                        "description": "Query the number of data"
-                    },
-                    {
-                        "name": "currentPage",
-                        "in": "query",
-                        "type": "string",
-                        "description": "A search query"
-                    }
-                ]
-            }
-        },
-        "/searchCovidInfo": {
-            "get": {
-                "tags": [
-                    "Covid search"
-                ],
-                "description": "Search for information that relates to covid-19 restriction in country and the search is based on country name which is /adm0_name/ any thing other than that will return empty",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "successful operation",
-                        "schema": {
-                            "$ref": "#/definitions/Covid-infoh"
-                        }
-                    },
-                    "404": {
-                        "description": "failed operation"
-                    }
-                },
-                "parameters": [
-                    {
-                        "name": "search",
-                        "in": "query",
-                        "type": "string",
-                        "description": "A search query"
-                    }
-                ]
-            }
-        },
-        "/more-video": {
-            "get": {
-                "tags": [
-                    "Get more videos"
+                    "Get more videos route"
                 ],
                 "description": "get more videos on click buuton",
                 "produces": [
@@ -256,43 +162,6 @@
                 }
             }
         },
-        "/auth/facebook": {
-            "get": {
-                "tags": [
-                    "Facebook authentication"
-                ],
-                "summary": "Login or signup link  with facebook",
-                "description": "After successfull signin or signup the user will be redirect to /user route",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "image upload successfully"
-                    }
-                }
-            }
-        },
-        "/auth/google": {
-            "get": {
-                "tags": [
-                    "Facebook authentication"
-                ],
-                "summary": "Authentication with Google",
-                "description": "After a successfull google authentication the user will be redirected to /user",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "image upload successfully",
-                        "schema": {
-                            "$ref": "#/definitions/Login"
-                        }
-                    }
-                }
-            }
-        },
         "/signup": {
             "post": {
                 "tags": [
@@ -335,21 +204,100 @@
                 }
             }
         },
-        "/contact": {
+        "/user": {
             "get": {
                 "tags": [
-                    "Contact us page"
+                    "Authenticated route for user"
                 ],
-                "summary": "contact us page",
-                "description": "get route for contact us page",
+                "description": "This is an anthenticated route after user user signs in",
+                "summary": "User home",
+                "produces": [
+                    "application/json"
+                ],
+                "security": [
+                    {
+                        "Bearer" : []
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    },
+                    "401":{
+                        "description": "Empty token"
+                    },
+                    "400":{
+                        "description": "Expire token"
+                    }
+                }
+            }
+        },
+        "/covid-info": {
+            "get": {
+                "tags": [
+                    "Covid-19 info For Countries"
+                ],
+                "summary": "Covid-19 restrictions for countries",
+                "description": "to get countries and their their covid restrictions",
                 "produces": [
                     "application/json"
                 ],
                 "responses": {
                     "200": {
-                        "description": "successfull operation"
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Covid-info"
+                        }
                     }
-                }
+                },
+                "parameters": [
+                    {
+                       
+                        "name": "limit",
+                        "in": "query",
+                        "schema": {
+                            "type": "number"
+                        },
+                        "description": "Query the number of data"
+                    },
+                    {
+                        "name": "currentPage",
+                        "in": "query",
+                        "type": "string",
+                        "description": "A search query"
+                    }
+                ]
+            }
+        },
+        
+        "/searchCovidInfo": {
+            "get": {
+                "tags": [
+                    "Covid search"
+                ],
+                "description": "Search for information that relates to covid-19 restriction in country and the search is based on country name which is /adm0_name/ any thing other than that will return empty",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/Covid-infoh"
+                        }
+                    },
+                    "404": {
+                        "description": "failed operation"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "type": "string",
+                        "description": "A search query"
+                    }
+                ]
             }
         },
         "/contact/sendMessage": {
@@ -381,7 +329,66 @@
                     }
                 }
             }
+        },
+      
+    
+      
+        "/auth/facebook": {
+            "get": {
+                "tags": [
+                    "Facebook authentication"
+                ],
+                "summary": "Login or signup link  with facebook",
+                "description": "After successfull signin or signup the user will be redirect to /user route",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "image upload successfully"
+                    }
+                }
+            }
+        },
+        "/auth/google": {
+            "get": {
+                "tags": [
+                    "Facebook authentication"
+                ],
+                "summary": "Authentication with Google",
+                "description": "After a successfull google authentication the user will be redirected to /user",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "image upload successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                }
+            }
+        },
+        
+        "/contact": {
+            "get": {
+                "tags": [
+                    "Contact us page"
+                ],
+                "summary": "contact us page",
+                "description": "get route for contact us page",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull operation"
+                    }
+                }
+            }
         }
+        
     },
     "definitions": {
         "home": {
