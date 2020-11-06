@@ -217,6 +217,7 @@ router.post('/postVideo', isLogged, aws.Videoupload.any(), function(req,res){
         
         
     })
+    res.send(req.files)
    
 
     
@@ -253,7 +254,7 @@ router.get('/contact', function (req, res) {
     res.status(200).json({ title: "contact" })
 })
 
-router.post('/contact/sendMessage', controller.contact)
+router.post('/contact', controller.contact)
 
 
 // password reset 
