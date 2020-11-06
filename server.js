@@ -19,9 +19,12 @@ mongoose.connection.once('open', function(){
 
 
 const port = app.get('port')
+
 app.listen(process.env.PORT || 5000, function () {
     console.log(`app listening at port: `)
 })
+
+console.log('HSHHDHDHDHDBD', process.env.PORT)
 
 const fs = require('fs')
 const file = fs.readFileSync('./controllers/template/email.handlebars','utf-8')
