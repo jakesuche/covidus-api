@@ -264,6 +264,7 @@ router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
 
     }catch(err) {
         res.status(400).send({message:'Please add a video file'})
+        console.log(err)
 
     }
 //    console.log(req)
