@@ -44,6 +44,13 @@ const sessionStore = new  mongoStore({
     collection:'session'
 
 })
+const expressSanitize = require('express-mongo-sanitize')
+const helmet = require('helmet')
+const xssClean = require('xss-clean')
+const expressRateLimit = require('express-rate-limit');
+const hpp = require('hpp')
+
+
 
 
 module.exports = function(app){
@@ -86,9 +93,30 @@ module.exports = function(app){
     global.Video = require('../models/Video')
     global.Contact = require('../models/contact')
 
+    // sanitize data  
+    app.use(expressSanitize())
+
+    // helmet 
+    app.use(helmet())
+
+    // prevent xss attack 
+    app.use(xssClean())
+
+    // express rate limitig 
+    const limiter = expressRateLimit({
+        windowMs:10 * 60 *1000,
+        max: 100
+    })
+
+    app.use(limiter)
+
+    // prevent http 
+
+    app.use(hpp())
    
     app.use('/',mainRoute)
     app.use('/api',swaggerUi.serve, swaggerUi.setup(document))
+
     
 
     // app.all('*',function(req,res,next){

@@ -137,6 +137,9 @@
                             "$ref": "#/definitions/Videoupload"
                         }
                     },
+                    "400":{
+                        "description": "Missing file"
+                    },
                     "404":{
                         "description": "authentication error"
                     },
