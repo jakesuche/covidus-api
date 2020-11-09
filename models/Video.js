@@ -22,8 +22,8 @@ const newVideo = new Schema({
 
     },
     country:String,
-    UserId:{
-        type:String
+    Uploader:{
+        type: Schema.Types.ObjectId, ref: 'user' 
     },
     likes:{
         type:Number,

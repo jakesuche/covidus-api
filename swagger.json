@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "covidus1.herokuapp.com",
+    "host": "localhost:5000",
     "basePath": "/",
     "schemes": [
         "http",
@@ -107,6 +107,13 @@
                         "type": "file"
                     },
                     {
+                        "name": "title",
+                        "in": "formData",
+                        "description": "Additional data to pass to server",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
                         "name": "content",
                         "in": "formData",
                         "description": "Additional data to pass to server",
@@ -114,7 +121,7 @@
                         "type": "string"
                     },
                     {
-                        "name":"county",
+                        "name":"country",
                         "in":"formData",
                         "description": "Additional file to pass to server",
                         "required": false,

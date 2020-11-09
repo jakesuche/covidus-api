@@ -34,7 +34,8 @@ const upload = multer({
         s3: s0,
         bucket: 'covidus',
         acl: 'public-read',
-        metadata: function(req, file, cb){
+        metadata: function(req, file, cb,err){
+            
             cb(null, {fieldName: file.fieldname});
         },
         key: function(req, file, cb){

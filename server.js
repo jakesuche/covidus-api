@@ -17,11 +17,22 @@ mongoose.connection.once('open', function(){
     console.log('connected to Database');
 })
 
+app.use(function(req,res,next){
+    Video.find({}).populate('Uploader').exec(function(err,data){
+        console.log(data,'text i dddddjdjd')
+    })
+    next()
+})
+app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    console.log(req.err)
+    res.status(500).send('Something broke!')
+})
 
 const port = app.get('port')
 
 app.listen(process.env.PORT || 5000, function () {
-    console.log(`app listening at port: `)
+    console.log(`app listening at port:${5000} `)
 })
 
 

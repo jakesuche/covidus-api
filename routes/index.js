@@ -44,20 +44,23 @@ router.get("/", function (req, res) {
           videos: videos,
           message: req.flash("loginError"),
         };
-        res.sendFile(__dirname + "/home.html");
-        //    res.status(200).send(data)
+         res.sendFile(__dirname + "/home.html");
+       // res.render('home')
       }
     });
   //  res.status(200).json({title:'welcome to covidus'})
 
   // res.status(200).send(data)
 });
+
+
 router.get("/getvideos", function (req, res) {
 
 const CurrentPage = parseInt(req.query.currentPage) || 1;
   const limit = parseInt(req.query.limit) || 12;
 
   Video.find({})
+  .populate('user')
   .sort({timeStamp:-1})
     .skip(limit * CurrentPage - limit)
       .limit(limit)
@@ -221,43 +224,87 @@ router.get("/share-story", function (req, res) {
   res.status(200).json({ title: "Share your covid-19 story" });
 });
 // post route  for  video file upload
-router.post("/postVideo", isLogged, aws.Videoupload.any(), function (req, res) {
-  let video = new Video({
-    videoUrl: req.files[0].location,
-    title: req.body.title,
-    UserId: req.user,
-    caption: req.body.caption,
-    country: req.body.country,
-  });
-  video.save(function (err) {
-    if (err) {
-      console.log(err);
-    } else {
-      User.updateOne(
-        { _id: req.user },
-        {
-          $push: {
-            myVideos: {
-              videoUrl: req.files[0].location,
-              title: req.body.title,
-              caption: req.body.caption,
-            },
-          },
-        },
-        function (err, result) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.log(result);
-            res.status(200).send({ message: "Video uploaded successfully" });
-          }
-        }
-      );
-    }
-  });
+router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
+    try{
+        let video = new Video({
+            title: req.body.title,
+            Uploader: req.user,
+            caption: req.body.caption,
+            country: req.body.country,
+            videoUrl: req.files[0].location
+        })
 
-  //    res.send({video:req.files[0].location})
-});
+        video.save(function (err) {
+            if (err) {
+              console.log(err.message);
+            } else {
+              User.updateOne(
+                { _id: req.user },
+                {
+                  $push: {
+                    myVideos: {
+                      videoUrl: req.files[0].location,
+                      title: req.body.title,
+                      caption: req.body.caption,
+                    },
+                  },
+                },
+                function (err, result) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(result);
+                    res.status(200).send({ message: "Video uploaded successfully" });
+                  }
+                }
+              );
+            }
+          });
+
+
+    }catch(err) {
+        res.status(400).send({message:'Please add a video file'})
+
+    }
+//    console.log(req)
+//   let video = new Video({
+//     title: req.body.title,
+//     Uploader: req.user,
+//     caption: req.body.caption,
+//     country: req.body.country,
+//     videoUrl: req.files[0].location ,
+//     // videoUrl: (req.files === [ " "] ? " " : `${req.files[0].location }`)
+   
+//   });
+//   video.save(function (err) {
+//     if (err) {
+//       console.log(err.message);
+//     } else {
+//       User.updateOne(
+//         { _id: req.user },
+//         {
+//           $push: {
+//             myVideos: {
+//               videoUrl: req.files[0].location,
+//               title: req.body.title,
+//               caption: req.body.caption,
+//             },
+//           },
+//         },
+//         function (err, result) {
+//           if (err) {
+//             console.log(err);
+//           } else {
+//             console.log(result);
+//             res.status(200).send({ message: "Video uploaded successfully" });
+//           }
+//         }
+//       );
+//     }
+//   });
+
+//   //    res.send({video:req.files[0].location})
+ });
 
 // post router for signing up account
 router.post("/signup", signup.signup);
