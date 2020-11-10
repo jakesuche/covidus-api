@@ -158,7 +158,7 @@ router.get("/covid-info", function (req, res) {
             data: result,
           });
           db.close();
-          console.log(result);
+          // console.log(result);
         });
       });
   });
@@ -189,7 +189,7 @@ router.get("/searchCovidInfo", function (req, res) {
           }
           res.send({ result: result, noMatch: noMatch });
           db.close();
-          console.log(result);
+          // console.log(result);
         }
       });
   });
@@ -278,44 +278,7 @@ router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
         console.log(err)
 
     }
-//    console.log(req)
-//   let video = new Video({
-//     title: req.body.title,
-//     Uploader: req.user,
-//     caption: req.body.caption,
-//     country: req.body.country,
-//     videoUrl: req.files[0].location ,
-//     // videoUrl: (req.files === [ " "] ? " " : `${req.files[0].location }`)
-   
-//   });
-//   video.save(function (err) {
-//     if (err) {
-//       console.log(err.message);
-//     } else {
-//       User.updateOne(
-//         { _id: req.user },
-//         {
-//           $push: {
-//             myVideos: {
-//               videoUrl: req.files[0].location,
-//               title: req.body.title,
-//               caption: req.body.caption,
-//             },
-//           },
-//         },
-//         function (err, result) {
-//           if (err) {
-//             console.log(err);
-//           } else {
-//             console.log(result);
-//             res.status(200).send({ message: "Video uploaded successfully" });
-//           }
-//         }
-//       );
-//     }
-//   });
 
-//   //    res.send({video:req.files[0].location})
  });
 
 

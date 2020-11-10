@@ -34,13 +34,18 @@ module.exports = {
                     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
                     user.save(function (err) {
-                        console.log(user)
+                        
                         done(err, token, user)
                     })
                 })
             },
             function (token, user, done) {
-                const link = `${process.env.CLIENT_URL}/passwordreset/${token}-${user.name}`
+                
+                if(process.env.NODE_ENV ==='production'){
+                  const link = `${process.env.CLIENT_URL}/passwordreset/${token}-${user.name}`
+                }
+                const link = `${process.env.CLIENT_URL1}/passwordreset/${token}-${user.name}`
+
                 console.log(link)
                 const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
                 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -77,17 +82,16 @@ module.exports = {
 
     },
     resetPassword: function (req, res) {
+        console.log('reset token',req.params.token)
 
         User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function (err, user) {
+
             if (!user) {
                 res.json({ error: 'password rest token is invalid' })
             } if (user) {
-                res.render('login', {
-                    token: req.params.token
-                })
-                console.log(user)
+                   
                 if (process.env.NODE_ENV === 'production') {
-                    res.status(201).json({token:req.params.token})
+                    res.status(201).json({token: req.params.token})
                   }else{
                     res.render('login')
                   }

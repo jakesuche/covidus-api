@@ -19,7 +19,7 @@ mongoose.connection.once('open', function(){
 
 app.use(function(req,res,next){
     Video.find({}).populate('Uploader').exec(function(err,data){
-        console.log(data,'text i dddddjdjd')
+        // console.log(data,'text i dddddjdjd')
     })
     next()
 })
