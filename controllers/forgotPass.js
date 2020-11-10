@@ -42,7 +42,7 @@ module.exports = {
             function (token, user, done) {
                 
                 if(process.env.NODE_ENV ==='production'){
-                  const link = `${process.env.CLIENT_URL}/passwordreset/${token}`
+                  const link = `https://covidus1.herokuapp.com/passwordreset/${token}`
                   console.log('first from  production')
                 }
                 const link = `${process.env.CLIENT_URL1}/passwordreset/${token}`
