@@ -22,6 +22,7 @@ const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const { videoupload } = require("../controllers/Videouploadmiddle");
 const aws = require("../controllers/video");
+const sgMail = require('@sendgrid/mail');
 // const Multer = require('multer')
 
 // const multer = Multer({
@@ -32,6 +33,10 @@ const aws = require("../controllers/video");
 // })
 
 // root route
+router.get('/sendmessage', function(req,res){
+
+})
+
 router.get("/", function (req, res) {
   Video.find({})
     .limit(12)
@@ -44,8 +49,14 @@ router.get("/", function (req, res) {
           videos: videos,
           message: req.flash("loginError"),
         };
-         res.sendFile(__dirname + "/home.html");
-       // res.render('home')
+        
+       
+          res.sendFile(__dirname + "/home.html");
+       
+          //res.render('login')
+       
+
+        
       }
     });
   //  res.status(200).json({title:'welcome to covidus'})
@@ -307,6 +318,11 @@ router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
 //   //    res.send({video:req.files[0].location})
  });
 
+
+// route  for reset password
+router.post("/forgot", forgotPassword);
+router.get("/passwordreset/:token", resetPassword);
+router.post("/passwordreset/:token", resetpassword1);
 // post router for signing up account
 router.post("/signup", signup.signup);
 

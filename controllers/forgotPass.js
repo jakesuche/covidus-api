@@ -10,7 +10,7 @@ const hbs = require('nodemailer-express-handlebars')
 const hogan = require('hogan.js')
 const fs = require('fs')
 const template = fs.readFileSync('./controllers/template/changepassword.handlebars','utf-8')
-
+const sgMail = require("@sendgrid/mail")
 var compileTemplate = hogan.compile(template)
 
 
@@ -40,24 +40,31 @@ module.exports = {
                 })
             },
             function (token, user, done) {
-                const link = `href="${process.env.CLIENT_URL}/passwordreset/${token}-${user.name}"> ${process.env.CLIENT_URL}`
-                var transport = nodemailer.createTransport({service:"Gmail",auth:{user:process.env.GMAIL_NAME,pass:process.env.GMAIL_PASS}})
-                var mailOptions = {
-                    from:'Covidus 📧 <noreply@covidus.com>',
+                const link = `${process.env.CLIENT_URL}/passwordreset/${token}-${user.name}`
+                console.log(link)
+                const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                var msg = {
+                    from:'Covidus 📧 <uchechidi9@gmail.com>',
                     to:req.body.email,
                     subject:'Password Reset',
                     html:compileTemplate.render({name:user.name,link:link})
                     
-                   // html:`pls click on the link to activate your account <a href="http://localhost:4000/activate/${token}></a>`,
+                  // html:`pls click on the link to activate your account <a href="http://localhost:4000/activate/${token}></a>`,
 
                 }
                 console.log(user.name)
-                transport.sendMail(mailOptions,function(error, info){
-                    if(error){
-                        return console.log(error)
+                sgMail.send(msg, function(err,info){
+                    if(err){
+                        console.log(err)
+                        return res.status(400).json({message:'Error in send email'})
+
+                    }else{
+
+                        console.log(info)
+                        res.status(200).json({message:'An Email Has Been Sent With Instructions On How To Reset Pour Password'})
+
                     }
-                    console.log(info)
-                    res.json({message:'Account registered successfully'})
                 })
                
 

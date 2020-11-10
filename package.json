@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@google-cloud/storage": "^5.4.0",
+    "@sendgrid/mail": "^7.4.0",
     "async": "^3.2.0",
     "aws-sdk": "^2.783.0",
     "bcrypt": "^5.0.0",

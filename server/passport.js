@@ -92,7 +92,7 @@ module.exports = function(){
     passport.use(new facebookStrategy({
         clientID: process.env.FACEBOOK_ID,
         clientSecret:process.env.FACEBOOK_SECRETE ,
-        callbackURL: "https://covidus1.herokuapp.com/auth/facebook/callback",
+        callbackURL: "http://localhost:5000/auth/facebook/callback",
         profileFields: ['id', 'displayName', 'photos', 'email']
     
       },

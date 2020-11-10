@@ -13,7 +13,7 @@
             "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
         }
     },
-    "host": "covidus1.herokuapp.com",
+    "host": "localhost:5000",
     "basePath": "/",
     "schemes": [
         "http",
