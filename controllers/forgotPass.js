@@ -68,7 +68,7 @@ module.exports = {
                     }else{
 
                         console.log(info)
-                        res.status(200).json({message:'An Email Has Been Sent With Instructions On How To Reset Pour Password'})
+                        res.status(200).json({message:'An Email Has Been Sent With Instructions On How To Reset Pour Password',token:token})
 
                     }
                 })

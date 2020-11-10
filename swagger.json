@@ -387,6 +387,45 @@
                 }
             }
         },
+        "/passwordreset/{token}":{
+            "post":{
+                "tags": [
+                    "password reset"
+                ],
+                "consumes":[
+                    "application/json"
+                ],
+                "operationId": "getByToken",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "path",
+                        "description": "Token from reset password",
+                        "required": true,
+                        "type": "string"
+                        
+                        
+                    },
+                    {
+                        "in":"body",
+                        "name": "forgot password",
+                        "description": "Enter email",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#definitions/PasswordChange"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200":{
+                        "description": "successful operation"
+                    },
+                    "400":{
+                        "description": "failed operation"
+                    }
+                }
+            }
+        },
       
     
       
@@ -552,6 +591,18 @@
                 "email":{
                     "type":"string"
                 }
+            }
+        },
+        "PasswordChange":{
+            "type":"object",
+            "properties": {
+                "password":{
+                    "type":"string"
+                },
+                "password1":{
+                    "type":"string"
+                }
+                
             }
         }
     }
