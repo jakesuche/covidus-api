@@ -58,7 +58,7 @@ module.exports = function(app){
 
 
     
-    app.use(morgan('dev')) // logging agent
+    // app.use(morgan('dev')) // logging agent
     app.use(cors())
     dotenv.config({ path:'../config.env'}); // environ variable configuration 
     app.use(bodyParser.urlencoded({extended:true}));
