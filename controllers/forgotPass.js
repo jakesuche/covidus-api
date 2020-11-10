@@ -45,7 +45,7 @@ module.exports = {
                   const link = `https://covidus1.herokuapp.com/passwordreset/${token}`
                   console.log('first from  production')
                 }
-                const link = `${process.env.CLIENT_URL1}/passwordreset/${token}`
+                const link = `${process.env.CLIENT_URL}/passwordreset/${token}`
 
                 console.log(link)
                 const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
