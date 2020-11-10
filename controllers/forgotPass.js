@@ -30,7 +30,7 @@ module.exports = {
                         return res.status(400).json({ error: "No account With the email address" })
                     }
 
-                    user.resetPasswordToken = token +'-'+ user.name;
+                    user.resetPasswordToken = token;
                     user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
                     user.save(function (err) {
@@ -42,9 +42,10 @@ module.exports = {
             function (token, user, done) {
                 
                 if(process.env.NODE_ENV ==='production'){
-                  const link = `${process.env.CLIENT_URL}/passwordreset/${token}-${user.name}`
+                  const link = `${process.env.CLIENT_URL}/passwordreset/${token}`
+                  console.log('first from  production')
                 }
-                const link = `${process.env.CLIENT_URL1}/passwordreset/${token}-${user.name}`
+                const link = `${process.env.CLIENT_URL1}/passwordreset/${token}`
 
                 console.log(link)
                 const welcome = `We're excited to have you get started. First, you need to confirm your account. Just press the button below.`
@@ -91,6 +92,7 @@ module.exports = {
             } if (user) {
                    
                 if (process.env.NODE_ENV === 'production') {
+                    console.log('This is from production')
                     res.status(201).json({token: req.params.token})
                   }else{
                     res.render('login')
