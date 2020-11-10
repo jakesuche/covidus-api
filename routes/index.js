@@ -310,7 +310,7 @@ router.get("/contact", function (req, res) {
   res.status(200).json({ title: "contact" });
 });
 
-router.post("/contact", controller.contact);
+// router.post("/contact", controller.contact);
 
 // password reset
 router.post("/forgot", forgotPassword);
