@@ -50,11 +50,11 @@ router.get("/", function (req, res) {
           message: req.flash("loginError"),
         };
         
-       
+        if (process.env.NODE_ENV === 'production') {
           res.sendFile(__dirname + "/home.html");
-       
-          //res.render('login')
-       
+        }else{
+          res.render('login')
+        }
 
         
       }

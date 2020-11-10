@@ -86,6 +86,11 @@ module.exports = {
                     token: req.params.token
                 })
                 console.log(user)
+                if (process.env.NODE_ENV === 'production') {
+                    res.status(201).json({token:req.params.token})
+                  }else{
+                    res.render('login')
+                  }
 
             }
         })
@@ -121,18 +126,18 @@ module.exports = {
                 })
             },
             function (user, done,) {
-                var transport = nodemailer.createTransport({service:"Gmail",auth:{user:process.env.GMAIL_NAME,pass:process.env.GMAIL_PASS}})
-                var mailOptions = {
-                    from:'Covidus 📧 <noreply@covidus.com>',
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                var msg = {
+                    from:'Covidus 📧 <uchechidi9@gmail.com>',
                     to:req.body.email,
                     subject:'Password Reset',
-                    html:compileTemplate.render({name:user.name,link:link})
+                    html:compileTemplate.render({name:user.name})
                     
                    // html:`pls click on the link to activate your account <a href="http://localhost:4000/activate/${token}></a>`,
 
                 }
                 console.log(user.name)
-                transport.sendMail(mailOptions,function(error, info){
+                sgMail.send(msg,function(error, info){
                     if(error){
                         return console.log(error)
                     }
