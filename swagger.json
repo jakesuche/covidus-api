@@ -357,6 +357,36 @@
                 }
             }
         },
+        "/forgot":{
+            "post":{
+                "tags":[
+                    "Forgot password"
+                ],
+                "summary": "Forgot password",
+                "produces":[
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in":"body",
+                        "name": "forgot password",
+                        "description": "Enter email",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#definitions/Forgot"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successfull operation",
+                        "schema": {
+                            "$ref": "#/definitions/ContactSchema"
+                        }
+                    }
+                }
+            }
+        },
       
     
       
@@ -513,6 +543,14 @@
                 },
                 "evidence": {
                     "type": "string"
+                }
+            }
+        },
+        "Forgot":{
+            "type":"object",
+            "properties": {
+                "email":{
+                    "type":"string"
                 }
             }
         }
