@@ -20,12 +20,12 @@
         "https"
     ],
     "securityDefinitions": {
-       "Bearer":{
-           "type":"apiKey",
-           "description": " pls login",
-           "in": "header",
-           "name": "Authorization"
-       }
+        "Bearer": {
+            "type": "apiKey",
+            "description": " pls login",
+            "in": "header",
+            "name": "Authorization"
+        }
     },
     "paths": {
         "/getvideos": {
@@ -63,7 +63,6 @@
                 },
                 "parameters": [
                     {
-                       
                         "name": "limit",
                         "in": "query",
                         "schema": {
@@ -95,7 +94,7 @@
                 ],
                 "security": [
                     {
-                        "Bearer":[]
+                        "Bearer": []
                     }
                 ],
                 "parameters": [
@@ -121,14 +120,12 @@
                         "type": "string"
                     },
                     {
-                        "name":"country",
-                        "in":"formData",
+                        "name": "country",
+                        "in": "formData",
                         "description": "Additional file to pass to server",
                         "required": false,
-                        "type":"string"
+                        "type": "string"
                     }
-                    
-
                 ],
                 "responses": {
                     "200": {
@@ -137,13 +134,13 @@
                             "$ref": "#/definitions/Videoupload"
                         }
                     },
-                    "400":{
+                    "400": {
                         "description": "Missing file"
                     },
-                    "404":{
+                    "404": {
                         "description": "authentication error"
                     },
-                    "405":{
+                    "405": {
                         "description": "invalid video format"
                     }
                 }
@@ -175,15 +172,14 @@
                 "responses": {
                     "200": {
                         "description": "Success",
-
                         "schema": {
                             "$ref": "#/definitions/Login"
                         }
                     },
-                    "400":{
+                    "400": {
                         "description": " empty request body"
                     },
-                    "401":{
+                    "401": {
                         "description": "Invalid password or email"
                     }
                 }
@@ -219,15 +215,15 @@
                             "$ref": "#/definitions/Signup"
                         }
                     },
-                    "400":{
+                    "400": {
                         "description": "errro in validation"
                     },
                     "401": {
                         "description": "server error"
-                      },
-                      "404": {
+                    },
+                    "404": {
                         "description": "Validation exception"
-                      }
+                    }
                 }
             }
         },
@@ -243,17 +239,17 @@
                 ],
                 "security": [
                     {
-                        "Bearer" : []
+                        "Bearer": []
                     }
                 ],
                 "responses": {
                     "200": {
                         "description": "successful operation"
                     },
-                    "401":{
+                    "401": {
                         "description": "Empty token"
                     },
-                    "400":{
+                    "400": {
                         "description": "Expire token"
                     }
                 }
@@ -279,7 +275,6 @@
                 },
                 "parameters": [
                     {
-                       
                         "name": "limit",
                         "in": "query",
                         "schema": {
@@ -296,7 +291,6 @@
                 ]
             }
         },
-        
         "/searchCovidInfo": {
             "get": {
                 "tags": [
@@ -357,18 +351,18 @@
                 }
             }
         },
-        "/forgot":{
-            "post":{
-                "tags":[
+        "/forgot": {
+            "post": {
+                "tags": [
                     "Forgot password"
                 ],
                 "summary": "Forgot password",
-                "produces":[
+                "produces": [
                     "application/json"
                 ],
                 "parameters": [
                     {
-                        "in":"body",
+                        "in": "body",
                         "name": "forgot password",
                         "description": "Enter email",
                         "required": false,
@@ -387,12 +381,12 @@
                 }
             }
         },
-        "/passwordreset/{token}":{
-            "post":{
+        "/passwordreset/{token}": {
+            "post": {
                 "tags": [
                     "password reset"
                 ],
-                "consumes":[
+                "consumes": [
                     "application/json"
                 ],
                 "operationId": "getByToken",
@@ -403,11 +397,9 @@
                         "description": "Token from reset password",
                         "required": true,
                         "type": "string"
-                        
-                        
                     },
                     {
-                        "in":"body",
+                        "in": "body",
                         "name": "forgot password",
                         "description": "Enter email",
                         "required": false,
@@ -417,18 +409,15 @@
                     }
                 ],
                 "responses": {
-                    "200":{
+                    "200": {
                         "description": "successful operation"
                     },
-                    "400":{
+                    "400": {
                         "description": "failed operation"
                     }
                 }
             }
         },
-      
-    
-      
         "/auth/facebook": {
             "get": {
                 "tags": [
@@ -466,7 +455,6 @@
                 }
             }
         },
-        
         "/contact": {
             "get": {
                 "tags": [
@@ -484,7 +472,6 @@
                 }
             }
         }
-        
     },
     "definitions": {
         "home": {
@@ -585,24 +572,23 @@
                 }
             }
         },
-        "Forgot":{
-            "type":"object",
+        "Forgot": {
+            "type": "object",
             "properties": {
-                "email":{
-                    "type":"string"
+                "email": {
+                    "type": "string"
                 }
             }
         },
-        "PasswordChange":{
-            "type":"object",
+        "PasswordChange": {
+            "type": "object",
             "properties": {
-                "password":{
-                    "type":"string"
+                "password": {
+                    "type": "string"
                 },
-                "password1":{
-                    "type":"string"
+                "password1": {
+                    "type": "string"
                 }
-                
             }
         }
     }

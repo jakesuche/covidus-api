@@ -8,7 +8,7 @@ var { getVideoDuration } = require("get-video-duration");
 const { request } = require("http");
 var path = require("path");
 const os = require("os");
-const controller = require("../controllers/contact");
+const { contact }= require("../controllers/contact");
 const passwordReset = require("../controllers/forgotPass");
 const {
   forgotPassword,
@@ -273,6 +273,7 @@ router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
           });
 
 
+
     }catch(err) {
         res.status(400).send({message:'Please add a video file'})
         console.log(err)
@@ -280,6 +281,7 @@ router.post("/postVideo",  aws.Videoupload.any(),  async function (req, res) {
     }
 
  });
+ router.post('/contact/sendMessage', contact)
 
 
 // route  for reset password
