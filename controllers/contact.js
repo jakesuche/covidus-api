@@ -7,6 +7,7 @@ const template = fs.readFileSync(
 );
 var compileTemplate = hogan.compile(template);
 
+
 module.exports = {
   contact: function (req, res) {
     req.checkBody("name", " Name field cannot be empty").notEmpty();
@@ -49,6 +50,8 @@ module.exports = {
                 var link = `https://covidus.netlify.app`
                 const message = `We Have recieved Your Request For Covid-19 test fee, Please Note That This Request Is Only Made Once, We Will Attend Your Message As Soon As Possible, We Thank You For Getting In Touch`
                 // global.sendGrid = require('@sendgrid/mail')
+
+                // sendGrid is a global variable ..from configure.js
                 sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
 
                 const msg = {
