@@ -30,6 +30,11 @@ An information platform that helps international travellers navigate their way w
     nodemon
     
     
+[Live project backend](https://covidus1.herokuapp.com)
+
+[live project frontend](https://covidus.netlify.app)
+    
+    
 
 
 
