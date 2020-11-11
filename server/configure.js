@@ -92,6 +92,7 @@ module.exports = function(app){
     global.User = require('../models/user')
     global.Video = require('../models/Video')
     global.Contact = require('../models/contact')
+    global.sendGrid = require('@sendgrid/mail')
 
     // sanitize data  
     app.use(expressSanitize())

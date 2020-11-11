@@ -562,7 +562,7 @@
                     "type": "string"
                 },
                 "phone": {
-                    "type": "number"
+                    "type": "string"
                 },
                 "reason": {
                     "type": "string"

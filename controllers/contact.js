@@ -1,5 +1,11 @@
-const nodemailer = require("nodemailer");
-let { SMPTCleient }= require('emailjs')
+
+const hogan = require("hogan.js");
+const fs = require("fs");
+const template = fs.readFileSync(
+  "./controllers/template/sendMessage.hbs",
+  "utf-8"
+);
+var compileTemplate = hogan.compile(template);
 
 module.exports = {
   contact: function (req, res) {
@@ -7,7 +13,7 @@ module.exports = {
     req.checkBody("country", "Email cannot be empty").notEmpty();
     req.checkBody("email", "Please enter a valid Email Address").isEmail();
     req.checkBody("email", " Name field cannot be empty").notEmpty();
-    req.checkBody("number", "please enter a valid data").notEmpty();
+    req.checkBody("phone", "please enter a valid data").notEmpty();
     req.checkBody("reason", "Email cannot be empty").notEmpty();
     req.checkBody("evidence", "field cannot be empty").notEmpty();
 
@@ -24,7 +30,7 @@ module.exports = {
             res.send(err);
           }
           if (data) {
-            res.json({ message: "You only send request ones" });
+            res.json({ message: `You previously sent us a message with ${req.body.email}. Please choose a different email or wait till we attend to your request` });
           } else {
             let contact = new Contact({
               name: req.body.name,
@@ -35,38 +41,43 @@ module.exports = {
               evidence: req.body.email,
             });
 
-            contact.save(function (err, data) {
+            contact.save(function (err, user) {
               if (err) {
                 console.log(err);
               } else {
                 var userEmail = req.body.email;
-                var transport = nodemailer.createTransport({
-                  host: "smtp.mailtrap.io",
-                  port:2525,
-                  auth: {
-                    user: "2a6f827a372487",
-                    pass: "80800cb52a886f",
-                  },
-                });
-                var mailOptions = {
-                  from: "Covidus <noreply@covidus.com>",
-                  to: userEmail,
-                  subject: "contact",
-                  html: "Thank you for contacting us",
+                var link = `https://covidus.netlify.app`
+                const message = `We Have recieved Your Request For Covid-19 test fee, Please Note That This Request Is Only Made Once, We Will Attend Your Message As Soon As Possible, We Thank You For Getting In Touch`
+                // global.sendGrid = require('@sendgrid/mail')
+                sendGrid.setApiKey(process.env.SENDGRID_API_KEY);
+
+                const msg = {
+                  to: req.body.email,
+                  from: " Covidus <uchechidi9@gmail.com>", // Use the email address or domain you verified above
+                  subject: "THANK YOUR FOR CONTACTING US ",
+                  text: "and easy to do anywhere, even with Node.js",
+                  html: compileTemplate.render({
+                    name: user.name,
+                    link:link,
+                    message:message
+                  }),
                 };
                 setTimeout(function () {
-                  transport.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                      return console.log(error);
-                    }else{
-                      res.send({message:'Massage sent'})
-                    }
+                 sendGrid.send(msg, function(err, info){
+                   if(err){
+                     console.log(err)
+                     res.status(400).send({message:'Error in sending message'})
+                   }else{
+                     console.log(info)
+                    res.status(200).json({
+                       
+                      message:"Thank you for contacting us .."
+                    })
+                   }
+
                     
-                  
-                    
-                    // console.log(info);
-                    // res.json({ message: "Email sent" });
-                  });
+                   
+                 })
                 }, 10000);
               }
             });
@@ -76,3 +87,5 @@ module.exports = {
     }
   },
 };
+
+
